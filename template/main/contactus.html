@@ -2,5 +2,36 @@
 {% block titleblock %}
 <title>Doctor Appointment | Contact Us</title>
 {% endblock %}{% block mainblock %}
-Contact us
+<div class="container row" style="margin-top: 5%; margin-bottom: 14%; margin-left: 5%; margin-right: 5%;">
+    <!-- Comment Section start -->
+    <div class="col-6">
+        <form action="#" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h4 class="ad-comment">Leave a Comment <i class="fa fa-comment text-success" aria-hidden="true"></i></h4>
+            <div class="row">
+                <div class="col mb-3">
+                    <input type="text" class="form-control" placeholder="Name *" name="name" required="required">
+                </div>
+                <div class="col mb-3">
+                    <input type="email" class="form-control" placeholder="Email *" name="email" required="required">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <textarea class="form-control" id="comments" name="Comments" rows="3"
+                    placeholder="Write a Comment *"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-dark">Send Comment</button>
+
+        </form>
+    </div>
+    <!-- Comment Section end -->
+    <div class="col-6">
+        <h3><b><u>Our Contact Info</u></b></h3>
+        <p><i class="fa fa-envelope text-info" aria-hidden="true"></i><b> Email: </b>
+            karndipu09@gmail.com</p>
+        <p><i class="fa fa-mobile text-info" aria-hidden="true"></i> <b>Phone:</b> 8298337818</p>
+    </div>
+</div>
 {% endblock %}

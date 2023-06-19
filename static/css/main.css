@@ -1,0 +1,44 @@
+.login {
+    display: block;
+    margin: auto;
+    width: 30%;
+    margin-top: 6%;
+    margin-bottom: 9%;
+    padding: 25px;
+    background-color: whitesmoke;
+    color: black;
+    border: 2px solid rgba(77, 106, 155, 0.836);
+    border-radius: 5px;
+}
+
+.signup {
+    display: block;
+    margin: auto;
+    width: 30%;
+    margin-top: 4%;
+    margin-bottom: 8%;
+    padding: 25px;
+    background-color: whitesmoke;
+    color: black;
+    border: 2px solid rgba(77, 106, 155, 0.836);
+    border-radius: 5px;
+}
+
+
+@media screen and (max-width:750px) {
+    .login {
+        display: block;
+        margin: auto;
+        margin-top: 10%;
+        width: 60%;
+
+    }
+
+    .signup {
+        display: block;
+        margin: auto;
+        margin-top: 10%;
+        width: 60%;
+    }
+
+}

@@ -1,6 +1,34 @@
 {% extends 'master.html' %}{%load static %}
 {% block titleblock %}
 <title>Doctor Appointment | Sign Up</title>
+<link href="{% static 'css/main.css' %}" rel="stylesheet">
 {% endblock %}{% block mainblock %}
-Create your account
+<div class="signup bg-light text-dark">
+    <div class="text-primary text-center ">
+        <h5 class="text-dark"><b>Sign up for patient</b></h5>
+    </div>
+    <div>
+        <form action="{% url 'signup' %}" method="post">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+                <input type="text" class="form-control form-control-sm" placeholder="Fullname" name="name" id="name" required="required" />
+            </div>
+
+            <div class="input-group mb-3">
+                <input type="email" name="email" id="email" class="form-control form-control-sm" placeholder="Email"
+                    required="required" />
+            </div>
+            <div class="input-group mb-3">
+                <input type="password" name="password" id="password" class="form-control form-control-sm" placeholder="Password"
+                    required="required" />
+            </div>
+            <div class="input-group mb-3">
+                <input type="password" name="repassword" id="repassword" class="form-control form-control-sm" placeholder="Confirm password" required="required" />
+            </div>
+            <div class="input-group mb-3">
+                <button type="submit" class="btn btn-sm btn-outline-primary">Create account</button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

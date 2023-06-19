@@ -1,6 +1,33 @@
 {% extends 'master.html' %}{%load static %}
 {% block titleblock %}
 <title>Doctor Appointment | Login</title>
+<link href="{% static 'css/main.css' %}" rel="stylesheet">
 {% endblock %}{% block mainblock %}
-Welcome in Login Page
+<div class="login ">
+    <div class="row">
+        <div class="col-sm-3" style="display: block;margin: auto;">
+            <h5><strong>Login</strong></h5>
+            <img src="{% static 'img/favicon/favicon.png' %}" height="50" width="50" >
+            
+
+        </div>
+        <div class="col-sm-9">
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="username" class="form-label">Email</label>
+                    <input type="text" class="form-control form-control-sm" id="username" name="username"
+                        aria-describedby="emailHelp" required>
+                     <div id="emailHelp" class="form-text">Never share your credential with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control form-control-sm" id="password" name="password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-sm">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
