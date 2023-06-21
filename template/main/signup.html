@@ -1,4 +1,4 @@
-{% extends 'master.html' %}{%load static %}
+{% extends 'anonymous.html' %}{%load static %}
 {% block titleblock %}
 <title>Doctor Appointment | Sign Up</title>
 <link href="{% static 'css/main.css' %}" rel="stylesheet">
@@ -10,25 +10,109 @@
     <div>
         <form action="{% url 'signup' %}" method="post">
             {% csrf_token %}
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.tags == 'success' %}
+            <div class="alert alert-success" role="alert">
+                {{message}}
+            </div>
+            {% elif message.tags == 'error' %}
+            <div class="alert alert-danger" role="alert">
+                {{message}}
+            </div>
+            {% endif %}
+            {% endfor %}
+
+            {% endif %}
+            <div id="info" class="form-text"></div>
             <div class="input-group mb-3">
-                <input type="text" class="form-control form-control-sm" placeholder="Fullname" name="name" id="name" required="required" />
+                <input type="text" class="form-control form-control-sm" placeholder="Username *" name="username"
+                    id="username" onfocus="onFocusUsername()" aria-describedby="info" required="required" />
             </div>
 
             <div class="input-group mb-3">
-                <input type="email" name="email" id="email" class="form-control form-control-sm" placeholder="Email"
+                <input type="email" name="email" id="email" class="form-control form-control-sm" placeholder="Email *"
+                    required="required" />
+            </div>
+            <div id="message1" class="form-text"></div>
+            <div class="input-group mb-3">
+                <input type="password" name="password" id="password" class="form-control form-control-sm"
+                    placeholder="Password *" onkeyup="isStrong()" aria-describedby="message1" required="required" />
+            </div>
+            <div id="message2" class="form-text"></div>
+            <div class="input-group mb-3">
+                <input type="password" name="repassword" id="repassword" class="form-control form-control-sm"
+                    placeholder="Confirm password *" onkeyup="validate()" aria-describedby="message2"
                     required="required" />
             </div>
             <div class="input-group mb-3">
-                <input type="password" name="password" id="password" class="form-control form-control-sm" placeholder="Password"
-                    required="required" />
-            </div>
-            <div class="input-group mb-3">
-                <input type="password" name="repassword" id="repassword" class="form-control form-control-sm" placeholder="Confirm password" required="required" />
-            </div>
-            <div class="input-group mb-3">
-                <button type="submit" class="btn btn-sm btn-outline-primary">Create account</button>
+                <button type="submit" id="signup" class="btn btn-sm btn-outline-primary">Create account</button>
             </div>
         </form>
     </div>
 </div>
+<!-- JavaScript Started -->
+<script>
+    function onFocusUsername() {
+        // This function display the information about username.
+        document.getElementById("info").innerHTML = "Usernames may contain alphanumeric, _, @, +, . and - characters.";
+        document.getElementById("info").style.color = "skyblue";
+    }
+    function isStrong() {
+        // This function check whether the password is strong or not.
+        let password = document.getElementById("password").value;
+        let alpha = 0;
+        let number = 0;
+        let s_alpha = 0;
+        document.getElementById("info").innerHTML=null;
+        if (password.length >= 8) {
+            for (let i = 0; i < password.length; i++) {
+                if (password[i] >= 'A' && password[i] <= 'Z') {
+                    alpha = 1;
+                }
+                if (password[i] >= '0' && password[i] <= '9') {
+                    number = 1;
+                }
+                if (password[i] >= 'a' && password[i] <= 'z') {
+                    s_alpha = 1;
+                }
+            }
+            if (alpha == 1 && number == 1 && s_alpha == 1 && password.length >= 8) {
+                document.getElementById("message1").innerHTML = "Password is Strong.";
+                document.getElementById("message1").style.color = 'green';
+            }
+        }
+        else if (password.length == 0) {
+            document.getElementById("message1").innerHTML = "Length of the password must be 8 or greater!!";
+            document.getElementById("message1").style.color = 'skyblue';
+        } else {
+            document.getElementById("message1").innerHTML = "Password is weak";
+            document.getElementById("message1").style.color = 'red';
+        }
+    }
+    function validate() {
+        // This function checks both password and repassword is same or not.
+        let password = document.getElementById("password").value;
+        let repassword = document.getElementById("repassword").value;
+        document.getElementById("info").innerHTML=null;
+        if (repassword == "") {
+            document.getElementById("message1").innerHTML = null;
+            document.getElementById("message2").innerHTML = "Confirm Password will not be empty!."
+            document.getElementById("message2").style.color = 'orange';
+            document.getElementById("signup").disabled = true;
+        }
+        else if (password === repassword) {
+            document.getElementById("message1").innerHTML = null;
+            document.getElementById("message2").innerHTML = "Password is matched."
+            document.getElementById("message2").style.color = 'green';
+            document.getElementById("signup").disabled = false;
+        } else {
+            document.getElementById("message1").innerHTML = null;
+            document.getElementById("message2").innerHTML = "Password is not matched."
+            document.getElementById("message2").style.color = 'red';
+            document.getElementById("signup").disabled = true;
+        }
+    }
+</script>
+<!-- JavaScript Ended -->
 {% endblock %}

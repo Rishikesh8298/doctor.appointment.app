@@ -1,4 +1,4 @@
-{% extends 'master.html' %}{%load static %}
+{% extends 'anonymous.html' %}{%load static %}
 {% block titleblock %}
 <title>Doctor Appointment | Login</title>
 <link href="{% static 'css/main.css' %}" rel="stylesheet">
@@ -7,18 +7,27 @@
     <div class="row">
         <div class="col-sm-3" style="display: block;margin: auto;">
             <h5><strong>Login</strong></h5>
-            <img src="{% static 'img/favicon/favicon.png' %}" height="50" width="50" >
-            
-
+            <img src="{% static 'img/favicon/favicon.png' %}" height="50" width="50">
         </div>
         <div class="col-sm-9">
             <form action="{% url 'login' %}" method="post">
                 {% csrf_token %}
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == 'error' %}
+                <div class="alert alert-danger" role="alert">
+                    {{message}}
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                {% endif %}
                 <div class="mb-3">
-                    <label for="username" class="form-label">Email</label>
+                    <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control form-control-sm" id="username" name="username"
-                        aria-describedby="emailHelp" required>
-                     <div id="emailHelp" class="form-text">Never share your credential with anyone else.</div>
+                        aria-describedby="instruction" required>
+                    <div id="instruction" class="form-text">Never share your username and password with anyone else.
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
