@@ -1,0 +1,41 @@
+{% extends 'adminApp/master.html' %}{%load static %}
+{% block titleblock %}
+<title>Doctor Appointment | Add Doctor</title>
+{% endblock %}{% block headblock %} Add Doctor{% endblock %}
+{% block mainblock %}
+
+<form class="row g-3" method="post" action="{% url 'add_doctor' %}">
+    <div class="col-md-6">
+        <label for="firstname" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="firstname" name="firstname" required>
+    </div>
+    <div class="col-md-6">
+        <label for="lastname" class="form-label">Lastname</label>
+        <input type="text" class="form-control" id="lastname" name="lastname" required>
+    </div>
+    <div class="col-md-6">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    <div class="col-md-6">
+        <label for="phone" class="form-label">Phone</label>
+        <input type="text" class="form-control" id="phone" name="phone" required>
+    </div>
+    <div class="col-md-6">
+        <label for="gender" class="form-label">Gender</label>
+        <select id="gender" class="form-select" name="gender" required>
+            <option selected>Choose...</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+    <div class="col-md-6">
+        <label for="specialty" class="form-label">Specialty</label>
+        <input type="text" class="form-control" id="specialty" name="specialty" required>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Add Doctor</button>
+    </div>
+</form>
+{% endblock %}

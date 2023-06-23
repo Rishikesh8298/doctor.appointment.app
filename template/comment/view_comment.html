@@ -1,0 +1,32 @@
+{% extends 'adminApp/master.html' %}{%load static %}
+{% block titleblock %}
+<title>Doctor Appointment | Comments</title>
+{% endblock %}
+{% block headblock %} View Comments {% endblock %}{% block mainblock %}
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Comments</th>
+            <!-- <th scope="col">Post time</th> -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>John Morton</td>
+            <td>morton.jon68@gmail.com</td>
+            <td>Test1</td>
+            <!-- <td></td> -->
+        </tr>
+        <tr>
+            <td>Park seojin</td>
+            <td>seojin.park98@gmail.com</td>
+            <td>Test 2</td>
+            <!-- <td></td> -->
+        </tr>l̥
+        </tbody>
+    </table>
+</div>
+{% endblock %}

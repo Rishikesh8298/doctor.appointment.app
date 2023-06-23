@@ -1,0 +1,56 @@
+{% extends 'adminApp/master.html' %}{%load static %}
+{% block titleblock %}
+<title>Doctor Appointment | Admin Dashboard</title>
+{% endblock %}
+{% block headblock %} Doctor List {% endblock %}{% block mainblock %}
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+        <tr>
+            <th scope="col">User ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Speciality</th>
+            <th scope="col">Send ID</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1,001</td>
+            <td>John Morton</td>
+            <td>morton.jon68@gmail.com</td>
+            <td>Urologist</td>
+            <td><a class="btn btn-sm btn-outline-primary">Send</a></td>
+        </tr>
+        <tr>
+            <td>1,002</td>
+            <td>Akula Krishna</td>
+            <td>krishna.akula12@gmail.com</td>
+            <td>Surgeon</td>
+            <td><a class="btn btn-sm btn-outline-primary">Send</a></td>
+        </tr>
+        <tr>
+            <td>1,003</td>
+            <td>Ayodeji Harris-eze</td>
+            <td>harris-eze.ayodeji46@gmail.com</td>
+            <td>Pulmonologist</td>
+            <td><a class="btn btn-sm btn-outline-primary">Send</a></td>
+        </tr>
+        <tr>
+            <td>1,004</td>
+            <td>Lyle Back</td>
+            <td>back.lyle80@gmail.com</td>
+            <td>Plastic Surgeon</td>
+            <td><a class="btn btn-sm btn-outline-primary">Send</a></td>
+        </tr>
+        <tr>
+            <td>1,005</td>
+            <td>David Stein</td>
+            <td>stein.david92@gmail.com</td>
+            <td>Psychiatrist / Neurologist</td>
+            <td><a class="btn btn-sm btn-outline-primary">Send</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}
