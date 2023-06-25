@@ -1,0 +1,45 @@
+{% extends 'adminApp/master.html' %}{%load static %}
+{% block titleblock %}
+<title>Doctor Appointment | Admin Dashboard</title>
+{% endblock %}
+{% block headblock %} View Specialty | <a href="{% url 'add_specialty' %}" class="btn btn-primary"> Add
+    new</a> {% endblock %}{% block mainblock %}
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">S.I.</th>
+            <th scope="col">Doctor Specialty</th>
+            <th scope="col">Total number of doctors</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Urologist</td>
+            <td>115</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Surgeon</td>
+            <td>115</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Pulmonologist</td>
+            <td>115</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Plastic Surgeon</td>
+            <td>115</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Psychiatrist</td>
+            <td>115</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

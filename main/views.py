@@ -43,7 +43,7 @@ def contactus(request):
     return render(request, 'main/contactus.html')
 
 
-@login_required(login_url='login/')
+@login_required(login_url='/login/')
 def userLogout(request):
     '''Logout the active user and redirect to home page'''
     logout(request)

@@ -1,0 +1,20 @@
+{% extends 'adminApp/master.html' %}{%load static %}
+{% block titleblock %}
+<title>Doctor Appointment | Admin Dashboard</title>
+{% endblock %}
+{% block headblock %} Add Specialty {% endblock %}{% block mainblock %}
+<div class="container">
+    <form class="row g-3" method="post" action="{% url 'add_specialty' %}">
+        {% csrf_token %}
+        <div class="col-auto">
+            <p class="form-control-plaintext">Add specialty</p>
+        </div>
+        <div class="col-auto">
+            <input type="text" class="form-control" id="specialty" name="specialty" placeholder="Example: Cardiologist">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-3">Add new</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
