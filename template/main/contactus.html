@@ -7,6 +7,16 @@
     <div class="col-6">
         <form action="{% url 'add_comment' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.tags == 'success' %}
+            <div class="alert alert-success" role="alert">
+                {{message}}
+            </div>
+            {% endif %}
+            {% endfor %}
+        
+            {% endif %}
             <h4 class="ad-comment">Leave a Comment <i class="fa fa-comment text-success" aria-hidden="true"></i></h4>
             <div class="row">
                 <div class="col mb-3">

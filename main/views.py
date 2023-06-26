@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
+from doctor.models import DoctorInfo
+
 
 # Create your views here.
 def home(request):
@@ -19,6 +21,8 @@ def userlogin(request):
             login(request, log)
             if request.user.is_superuser:
                 return redirect('admin_dashboard')
+            elif len(DoctorInfo.objects.filter(userid=request.user)):
+                return redirect('doctor_dashboard')
             else:
                 return redirect('patient_homepage')
         else:

@@ -5,6 +5,20 @@
 {% block mainblock %}
 
 <form class="row g-3" method="post" action="{% url 'add_doctor' %}">
+    {% csrf_token %} {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'success' %}
+    <div class="alert alert-success" role="alert">
+        {{message}}
+    </div>
+    {% elif message.tags == 'error' %}
+    <div class="alert alert-warning" role="alert">
+        {{message}}
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    {% endif %}
     <div class="col-md-6">
         <label for="firstname" class="form-label">First Name</label>
         <input type="text" class="form-control" id="firstname" name="firstname" required>
@@ -32,7 +46,12 @@
     </div>
     <div class="col-md-6">
         <label for="specialty" class="form-label">Specialty</label>
-        <input type="text" class="form-control" id="specialty" name="specialty" required>
+        <select id="specialty" class="form-select" name="specialty" required>
+            <option selected>Choose...</option>
+            {% for i in main %}
+            <option value="{{i.name}}">{{i.name}}</option>
+            {% endfor %}
+        </select>
     </div>
     <div class="col-12">
         <button type="submit" class="btn btn-primary">Add Doctor</button>

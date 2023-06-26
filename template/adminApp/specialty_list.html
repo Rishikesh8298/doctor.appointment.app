@@ -10,35 +10,19 @@
         <tr>
             <th scope="col">S.I.</th>
             <th scope="col">Doctor Specialty</th>
-            <th scope="col">Total number of doctors</th>
+
         </tr>
         </thead>
         <tbody>
+        {% for i in main %}
         <tr>
-            <td>1</td>
-            <td>Urologist</td>
-            <td>115</td>
+            <td>{{i.pk}}</td>
+            <td>{{i.name}}</td>
+            
         </tr>
-        <tr>
-            <td>2</td>
-            <td>Surgeon</td>
-            <td>115</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Pulmonologist</td>
-            <td>115</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>Plastic Surgeon</td>
-            <td>115</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>Psychiatrist</td>
-            <td>115</td>
-        </tr>
+        {% endfor %}
+
+
         </tbody>
     </table>
 </div>

@@ -15,9 +15,6 @@ class DoctorInfo(models.Model):
     practicing_year = models.DateField(null=True)
     professional_statement = models.TextField(null=True)
 
-    def __str__(self):
-        return self.firstname + self.lastname + self.userid
-
 
 class Qualification(models.Model):
     """This models stores details about doctor's education and professional qualification."""

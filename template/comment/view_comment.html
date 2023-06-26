@@ -14,18 +14,15 @@
         </tr>
         </thead>
         <tbody>
+        {% for i in list %}
         <tr>
-            <td>John Morton</td>
-            <td>morton.jon68@gmail.com</td>
-            <td>Test1</td>
+            <td>{{i.name}}</td>
+            <td>{{i.email}}</td>
+            <td>{{i.comment}}</td>
             <!-- <td></td> -->
         </tr>
-        <tr>
-            <td>Park seojin</td>
-            <td>seojin.park98@gmail.com</td>
-            <td>Test 2</td>
-            <!-- <td></td> -->
-        </tr>
+        {% endfor %}
+
         </tbody>
     </table>
 </div>
