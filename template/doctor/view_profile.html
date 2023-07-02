@@ -1,0 +1,170 @@
+{% extends 'doctor/master.html' %}{%load static %}
+{% block titleblock %}
+<title>Doctor Appointment | Profile</title>
+{% endblock %} {% block headblock %}Update your profile | <a class="btn btn-outline-primary btn-sm"
+                                                             href="{% url 'edit_profile' %}">Edit</a>{% endblock %}
+{% block mainblock %}
+<div class="container">
+    <!-- Personal Info started -->
+    <table class="table">
+        <thead>
+        <tr>
+            <td colspan="2" style="font-size: larger;"><b>Personal Information</b></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>User ID</td>
+            <td>{{request.user}}</td>
+        </tr>
+        <tr>
+            <td>Full Name</td>
+            <td>Rishikesh Karn</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{request.user.email}}</td>
+        </tr>
+        <tr>
+            <td>Phone</td>
+            <td>{{doctorinfo.phone}}</td>
+        </tr>
+        <tr>
+            <td>Specialization</td>
+            <td>{{specialty.specialization_id.name}}</td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td> Address 1: {{office.address1}}, Address 2: {{office.address2}} City: {{office.city}} State:
+                {{office.state}} Country {{office.country}}, {{office.zipcode}}
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <!-- Personal Info ended -->
+
+    <div class="row">
+        <!-- Qualification started   -->
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td colspan="2" style="font-size: larger;"><b>Higher Qualification</b></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Course Name</td>
+                            <td>{{qualification.name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Institute Name</td>
+                            <td>{{qualification.institute_name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Passing Year</td>
+                            <td>{{qualification.passing_year}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Qualification ended   -->
+        <!-- Availability started -->
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td colspan="2" style="font-size: larger;"><b>Availability</b></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Day of Week</td>
+                            <td>{{doctorAvailability.day_of_week}}</td>
+                        </tr>
+                        <tr>
+                            <td>Patient visit start time</td>
+                            <td>{{doctorAvailability.start_time}}</td>
+                        </tr>
+                        <tr>
+                            <td>Patient visit end time</td>
+                            <td>{{doctorAvailability.end_time}}</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <!-- Availability ended -->
+    </div>
+
+    <div class="row mt-3">
+        <!-- Bio started -->
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td colspan="2" style="font-size: larger;"><b>Bio</b></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Practicing from</td>
+                            <td>{{doctorinfo.practicing_year}}</td>
+                        </tr>
+                        <tr>
+                            <td>Professional Statement</td>
+                            <td>{{doctorinfo.professional_statement}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <!-- Bio ended -->
+        <!-- Time & Fee structure started -->
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td colspan="2" style="font-size: larger;"><b>Time & Fee structure </b></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Time slot per patient time</td>
+                            <td>{{office.time_slot_per_patient_time}}</td>
+                        </tr>
+                        <tr>
+                            <td>First consultation fee</td>
+                            <td>{{office.first_consultation_fee}}</td>
+                        </tr>
+                        <tr>
+                            <td>Followup consultation fee</td>
+                            <td>{{office.followup_consultation_fee}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Time & Fee structure ended -->
+    </div>
+    <br>
+    <br>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'adminApp/master.html' %}{%load static %}
+{% block titleblock %}
+<title>Doctor Appointment | Admin Dashboard</title>
+{% endblock %}
+{% block headblock %} Upload Specialty {% endblock %}{% block mainblock %}
+<div class="container">
+    <form class="row g-3" method="post" action="{% url 'import_specialty_data' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="col-auto">
+            <p class="form-control-plaintext">Upload Specialty</p>
+        </div>
+        <div class="col-auto">
+            <input type="file" class="form-control" id="specialty" name="specialty" placeholder="Example: Cardiologist">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-3">Upload</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'adminApp/master.html' %}{%load static %}
+{% block titleblock %}
+<title>Doctor Appointment | Dashboard</title>
+{% endblock %} {% block headblock %}Welcome to Admin Dashboard {% endblock %}
+{% block mainblock %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="card" title="Profile">
+                <a href="{% url 'add_doctor' %}">
+                    <div class="card-body">
+                        <h5 class="card-title text-center text-dark"><i class="fa fa-user-md"
+                                                                           style="font-size: 50px;"
+                                                                           aria-hidden="true"></i></h5>
+
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card" title="Add Specialty">
+                <a href="{% url 'add_specialty' %}">
+                    <div class="card-body">
+                        <h5 class="card-title text-center text-success"><i class="fa fa-stethoscope"
+                                                                           style="font-size: 50px;"
+                                                                           aria-hidden="true"></i>
+                        </h5>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card" title="View Comment">
+                <a href="{% url 'view_comment' %}">
+                    <div class="card-body">
+                        <h5 class="card-title text-center text-info"><i class="fa fa-comments" style="font-size: 50px;"
+                                                                        aria-hidden="true"></i></h5>
+
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card" title="Logout">
+                <a href="{% url 'logout' %}">
+                    <div class="card-body">
+                        <h5 class="card-title text-center text-danger"><i class="fa fa-sign-out"
+                                                                          style="font-size: 50px;"
+                                                                          aria-hidden="true"></i></h5>
+                        <p class="card-text"></p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

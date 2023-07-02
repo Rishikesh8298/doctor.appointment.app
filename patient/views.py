@@ -4,4 +4,4 @@ from django.shortcuts import render
 
 @login_required(login_url='/login/')
 def patient_homepage(request):
-    return render(request, 'patient/home.html')
+    return render(request, 'patient/doctor_list.html')

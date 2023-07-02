@@ -1,0 +1,217 @@
+{% extends 'doctor/master.html' %}{%load static %}
+{% block titleblock %}
+<title>Doctor Appointment | Profile</title>
+{% endblock %} {% block headblock %}Update your profile {% endblock %}
+{% block mainblock %}
+<div class="container">
+    <form action="{% url 'edit_profile' %}" method="post">
+        {% csrf_token %}
+        <!-- Personal Info started -->
+        <table class="table">
+            <thead>
+            <tr>
+                <td colspan="2" style="font-size: larger;"><b>Personal Information</b></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>User ID</td>
+                <td>{{request.user}}</td>
+            </tr>
+            <tr>
+                <td>Full Name</td>
+                <td>Rishikesh Karn</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{request.user.email}}</td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td>{{doctorinfo.phone}}</td>
+            </tr>
+            <tr>
+                <td>Specialization</td>
+                <td>{{specialty.specialization_id.name}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- Personal Info ended -->
+        <!-- Address Section Started -->
+        <div class="row mt-3">
+            <h5>Office Address *</h5>
+            <hr class="dropdown-divider">
+            <div class="col-12">
+                <label for="address1" class="form-label">Address (Street Number or Road Name, Landmark)</label>
+                <input type="text" class="form-control" id="address1" name="address1" value="{{office.address1}}"
+                       required>
+            </div>
+            <div class="col-12">
+                <label for="address2" class="form-label">Address 2 (Apartment, studio, or floor)</label>
+                <input type="text" class="form-control" id="address2" name="address2" value="{{office.address2}}"
+                       required>
+            </div>
+            <div class="col-md-4">
+                <label for="city" class="form-label">City</label>
+                <input type="text" class="form-control" id="city" name="city" value="{{office.city}}" required>
+            </div>
+            <div class="col-md-3">
+                <label for="state" class="form-label">State</label>
+                <input type="text" class="form-control" id="state" name="state" value="{{office.state}}" required>
+
+            </div>
+            <div class="col-md-3">
+                <label for="country" class="form-label">Country</label>
+                <input type="text" class="form-control" name="country" id="country" value="{{office.country}}" required>
+
+            </div>
+            <div class="col-md-2">
+                <label for="zipcode" class="form-label">ZipCode</label>
+                <input type="text" class="form-control" name="zipcode" id="zipcode" value="{{office.zipcode}}" required>
+            </div>
+        </div>
+        <!-- Address Section ended -->
+        <div class="row mt-3">
+            <!-- Qualification started   -->
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <td colspan="2" style="font-size: larger;"><b>Higher Qualification *</b></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Course Name</td>
+                                <td><input type="text" name="course_name" class="form-control"
+                                           value="{{qualification.name}}" required></td>
+                            </tr>
+                            <tr>
+                                <td>Institute Name</td>
+                                <td><input type="text" name="institute_name" class="form-control"
+                                           value="{{qualification.institute_name}}" required></td>
+
+                            </tr>
+                            <tr>
+                                <td>Passing Year</td>
+                                <td><input type="date" name="passing_year" class="form-control"
+                                           value="{{qualification.passing_year}}" required></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Qualification ended   -->
+            <!-- Availability started -->
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <td colspan="2" style="font-size: larger;"><b>Availability *</b></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Day of Week</td>
+                                <td><input type="text" name="day_of_week" class="form-control"
+                                           value="{{doctorAvailability.day_of_week}}" required></td>
+                            </tr>
+                            <tr>
+                                <td>Patient visit start time</td>
+                                <td><input type="time" name="start_time" class="form-control"
+                                           value="{{doctorAvailability.start_time}}" required></td>
+                            </tr>
+                            <tr>
+                                <td>Patient visit end time</td>
+                                <td><input type="time" name="end_time" class="form-control"
+                                           value="{{doctorAvailability.end_time}}" required></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Availability ended -->
+        </div>
+
+        <div class="row mt-3">
+            <!-- Bio started -->
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <td colspan="2" style="font-size: larger;"><b>Bio *</b></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Practicing from</td>
+                                <td><input type="date" name="practicing_year" class="form-control"
+                                           value="{{doctorinfo.practicing_year}}" required></td>
+                            </tr>
+                            <tr>
+                                <td>Professional Statement</td>
+                                <td><textarea name="professional_statement" class="form-control" rows="3" required>{{doctorinfo.professional_statement}}</textarea>
+
+                            </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Bio ended -->
+            <!-- Time & Fee structure started -->
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <td colspan="2" style="font-size: larger;"><b>Time & Fee structure *</b></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Time slot per patient time</td>
+                                <td><input type="text" name="time_slot_per_patient_time" class="form-control"
+                                           value="{{office.time_slot_per_patient_time}}" required></td>
+
+                            </tr>
+                            <tr>
+                                <td>First consultation fee</td>
+                                <td><input type="text" name="first_consultation_fee" class="form-control"
+                                           value="{{office.first_consultation_fee}}" required></td>
+
+                            </tr>
+                            <tr>
+                                <td>Followup consultation fee</td>
+                                <td><input type="text" name="followup_consultation_fee" class="form-control"
+                                           value="{{office.followup_consultation_fee}}" required></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Time & Fee structure ended -->
+        </div>
+
+        <input type="submit" value="Update" class="btn btn-outline-info">
+    </form>
+    <br>
+    <br>
+    <br>
+</div>
+{% endblock %}
