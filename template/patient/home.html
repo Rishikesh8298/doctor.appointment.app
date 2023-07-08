@@ -1,10 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Online Doctor Appointment | Home Page</title>
-</head>
-<body>
-Welcome to Patient home page.
-</body>
-</html>
+{% extends 'patient/master.html' %}{% load static %}
+{% block titleblock %}
+<title>Patients | Doctor Appointments</title>
+{% endblock %} {% block mainblock %}
+<div class="container" style="margin-left: 8%; margin-right:8%; background-color:whitesmoke;">
+    <div class="row mt-3 p-2">
+        <div class="col-md-3">
+            <input class="form-control" list="datalist" id="city" name="city" placeholder="Type to search..."
+                   required>
+            <datalist id="datalist">
+                {% for city in cities %}
+                <option value="{{city}}"></option>
+                {% endfor %}
+            </datalist>
+        </div>
+        <div class="col-md-5">
+            <select id="specialty" class="form-select" >
+                <option selected>Choose Specialty...</option>
+                {% for i in specialty %}
+                <option>{{i}}</option>
+                {%endfor%}
+            </select>
+        </div>
+        <div class="col">
+            <input type="submit" id="search" class="btn btn-outline-info" value="Search">
+        </div>
+    </div>
+    {% for i in doctors %}
+    <div class="row mt-3 p-2">
+        <div class="card mb-3" style="max-width: 100%;">
+            <div class="row">
+                <div class="col-md-2">
+                    {% if i.gender == "Male" %}
+                    <img src="{% static 'img/male.png' %}" class="img-fluid rounded-start" alt="...">
+                    {% else %}
+                    <img src="{% static 'img/female.png' %}" class="img-fluid rounded-start" alt="...">
+                    {% endif %}
+                </div>
+                <div class="col-md-10">
+                    <div class="card-body">
+                        <h5 class="card-title">{{i.firstname}} {{i.lastname}}</h5>
+                        <p class="card-text"><small class="text-muted">{{i.specialty}}</small></p>
+
+                        <p class="card-text">{{i.address1}} {{i.address2}} {{i.city}} {{i.state}} {{i.country}},
+                            {{i.zipcode}}</p>
+                        <p class="card-text"><small class="text-muted">Fee is Rs. {{i.first_consultation_fee}}</small>
+                        </p>
+                        <p class="card-text"><small class="text-muted">Available on {{i.day_of_week}}</small></p>
+                        <hr>
+                        <div class="row">
+                            <p class="card-text text-end"><small class="text-muted"><a href="#" class="btn btn-success">Take
+                                appointment</a></small></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

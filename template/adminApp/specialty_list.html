@@ -4,24 +4,19 @@
 {% endblock %}
 {% block headblock %} View Specialty | <a href="{% url 'add_specialty' %}" class="btn btn-primary"> Add
     new</a> {% endblock %}{% block mainblock %}
-<div class="container">
+<div class="container"  style="margin-bottom: 5%">
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">S.I.</th>
             <th scope="col">Doctor Specialty</th>
-
         </tr>
         </thead>
         <tbody>
         {% for i in main %}
         <tr>
-            <td>{{i.pk}}</td>
             <td>{{i.name}}</td>
-            
         </tr>
         {% endfor %}
-
 
         </tbody>
     </table>

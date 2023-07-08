@@ -98,11 +98,98 @@ def password_sent(request, userid):
 
 @login_required(login_url='/login/')
 def import_specialty_data(request):
+    if request.method == "POST":
+        csv_file = request.FILES['specialty']
+        if not csv_file.name.endswith(".csv"):
+            error = "Please Input csv file"
+            messages.error(request, error)
+
+        if csv_file.multiple_chunks():
+            error = "Please Input CSV file"
+            messages.error(request, error)
+
+        file_data = csv_file.read().decode("utf-8")
+        lines = file_data.split("\n")
+        for line in lines:
+            fields = line.split(",")
+            try:
+                if fields[0] == "Specialty":
+                    pass
+                else:
+                    specialty = fields[0]
+                    if len(Specialty.objects.filter(name=specialty)) == 0:
+                        data = Specialty(name=specialty)
+                        data.save()
+            except:
+                raise
     return render(request, "adminApp/import_specialty.html")
 
 
 @login_required(login_url='/login/')
 def import_doctor_data(request):
+    if request.method == "POST":
+        csv_file = request.FILES['file']
+        if not csv_file.name.endswith(".csv"):
+            error = "Please Input csv file"
+            messages.error(request, error)
+
+        if csv_file.multiple_chunks():
+            error = "Please Input CSV file"
+            messages.error(request, error)
+
+        file_data = csv_file.read().decode("utf-8")
+        lines = file_data.split("\n")
+        for line in lines:
+            fields = line.split(",")
+            try:
+                if fields[3] == "Gender":
+                    pass
+                else:
+                    firstname = fields[0]
+                    lastname = fields[2]
+                    gender = fields[3]
+                    address1 = fields[4]
+                    address2 = fields[5]
+                    city = fields[6]
+                    county = fields[7]
+                    state = fields[8]
+                    zipcode = fields[9]
+                    phone = fields[10]
+                    specialty = fields[11]
+                    email = fields[12]
+                    availability = fields[13]
+                    time_slot = fields[14]
+                    fee = fields[15]
+                    follow_up = fields[16]
+
+                    username = email[:email.rindex("@")]
+                    if gender == "M":
+                        gender = "Male"
+                    else:
+                        gender = "Female"
+
+                    User.objects.create_user(username=username, email=email, password=password_generator())
+                    doctor = DoctorInfo(userid=User.objects.get(username=username), firstname=firstname,
+                                        lastname=lastname,
+                                        phone=phone, gender=gender)
+                    doctor.save()
+                    specialty = DoctorSpecialization(userid=User.objects.get(username=username),
+                                                     specialization_id=Specialty.objects.get(name=specialty))
+                    specialty.save()
+                    office = Office(userid=User.objects.get(username=username), address1=address1,
+                                    address2=address2, city=city, state=state, country=county, zipcode=zipcode,
+                                    time_slot_per_patient_time=time_slot, first_consultation_fee=fee,
+                                    followup_consultation_fee=follow_up)
+                    office.save()
+                    qualification = Qualification(userid=User.objects.get(username=username))
+                    qualification.save()
+                    doctorAvailability = DoctorAvailability(userid=User.objects.get(username=username),
+                                                            day_of_week=availability, start_time="09:30:00",
+                                                            end_time="21:30:00")
+                    doctorAvailability.save()
+
+            except:
+                print("Okkay")
     return render(request, "adminApp/import_doctor.html")
 
 

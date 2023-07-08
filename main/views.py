@@ -9,7 +9,7 @@ from doctor.models import DoctorInfo
 
 # Create your views here.
 def home(request):
-    return render(request, 'main/doctor_list.html')
+    return render(request, 'main/home.html')
 
 
 def userlogin(request):

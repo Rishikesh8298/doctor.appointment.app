@@ -5,6 +5,20 @@
 {% block headblock %} Upload Doctors data {% endblock %}{% block mainblock %}
 <div class="container">
     <form class="row g-3" method="post" action="{% url 'import_doctor_data' %}" enctype="multipart/form-data">
+        {% csrf_token %} {% if messages %}
+        {% for message in messages %}
+        {% if message.tags == 'success' %}
+        <div class="alert alert-success" role="alert">
+            {{message}}
+        </div>
+        {% elif message.tags == 'error' %}
+        <div class="alert alert-warning" role="alert">
+            {{message}}
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        {% endif %}
         <div class="col-auto">
             <p class="form-control-plaintext">Upload Doctors</p>
         </div>

@@ -16,6 +16,9 @@ class DoctorInfo(models.Model):
     professional_statement = models.TextField(default=None, null=True)
     is_password_sent = models.BooleanField(default=False)
 
+    def __str__(self):
+        return str(self.userid)
+
 
 class Qualification(models.Model):
     """This models stores details about doctor's education and professional qualification."""
@@ -23,6 +26,9 @@ class Qualification(models.Model):
     name = models.CharField(max_length=200, db_column="qualification_name", default=None, null=True)
     institute_name = models.CharField(max_length=200, default=None, null=True)
     passing_year = models.DateField(null=True)
+
+    def __str__(self):
+        return str(self.userid) + " " + str(self.name)
 
 
 class Office(models.Model):
@@ -39,10 +45,16 @@ class Office(models.Model):
     first_consultation_fee = models.CharField(max_length=20, default=None, null=True)
     followup_consultation_fee = models.CharField(max_length=20, default=None, null=True)
 
+    def __str__(self):
+        return str(self.userid) + " " + str(self.city)
+
 
 class DoctorSpecialization(models.Model):
     userid = models.ForeignKey(User, blank=False, on_delete=CASCADE, db_column="username")
     specialization_id = models.ForeignKey(Specialty, blank=False, on_delete=CASCADE)
+
+    def __str__(self):
+        return str(self.userid) + " " + str(self.specialization_id)
 
 
 class DoctorAvailability(models.Model):
@@ -52,6 +64,9 @@ class DoctorAvailability(models.Model):
     start_time = models.TimeField(null=True)
     end_time = models.TimeField(null=True)
 
+    def __str__(self):
+        return str(self.userid) + " " + str(self.day_of_week)
+
 
 class Appointment(models.Model):
     """This models holds appointment Details for patients."""
@@ -60,3 +75,4 @@ class Appointment(models.Model):
     probable_start_time = models.TimeField()
     actual_end_time = models.TimeField()
     appointment_date = models.DateField()
+

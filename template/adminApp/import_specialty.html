@@ -5,7 +5,20 @@
 {% block headblock %} Upload Specialty {% endblock %}{% block mainblock %}
 <div class="container">
     <form class="row g-3" method="post" action="{% url 'import_specialty_data' %}" enctype="multipart/form-data">
-        {% csrf_token %}
+        {% csrf_token %}{% if messages %}
+        {% for message in messages %}
+        {% if message.tags == 'success' %}
+        <div class="alert alert-success" role="alert">
+            {{message}}
+        </div>
+        {% elif message.tags == 'error' %}
+        <div class="alert alert-warning" role="alert">
+            {{message}}
+        </div>
+        {% endif %}
+        {% endfor %}
+
+        {% endif %}
         <div class="col-auto">
             <p class="form-control-plaintext">Upload Specialty</p>
         </div>
