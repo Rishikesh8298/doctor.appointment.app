@@ -1,0 +1,54 @@
+{% extends 'doctor/master.html' %}{% load static %}
+{% block titleblock %}
+<title>Take Appointment | Doctor Appointments</title>
+{% endblock %} {% block mainblock %}
+
+<div class="container">
+    <div class="" style="margin-left: 8%; margin-right:8%; margin-top: 2%">
+        <p class="text-center Lead h4"><u>Upcoming Appointments</u></p>
+        {% if scheduled|length > 0%}
+        {% for i in scheduled %}
+        <div class="row mt-3 p-2">
+            <div class="card mb-3" style="max-width: 100%;">
+                <div class="row">
+                    <div class="col">
+                        <div class="card-body">
+                            <h5 class="card-title">{{i.patient_id.firstname}} {{i.patient_id.lastname}}</h5>
+                            <p class="card-text">Date of Appointment: <span
+                                    class="text-muted">{{i.appointment_date}}</span></p>
+                            <p class="card-text">Time-Slot:<span class="text-muted small"> {{i.probable_start_time}}</span></p>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {%else%}
+        <p class="lead text-success">No appointment available.</p>
+        {%endif%}
+        <br>
+        <p class="text-center Lead h4"><u>Past Appointments</u></p>
+        {% if pastAppointments|length > 0%}
+        {% for i in pastAppointments %}
+        <div class="row mt-3 p-2">
+            <div class="card mb-3" style="max-width: 100%;">
+                <div class="row">
+                    <div class="col">
+                        <div class="card-body">
+                            <h5 class="card-title">{{i.patient_id.firstname}} {{i.patient_id.lastname}}</h5>
+                            <p class="card-text">Date of Appointment: <span
+                                    class="text-muted">{{i.appointment_date}}</span></p>
+                            <p class="card-text">Time-Slot:<span class="text-muted small"> {{i.probable_start_time}}</span></p>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %} {%else%}
+        <p class="lead text-success">No appointment available.</p>
+        {%endif%}
+    </div>
+</div>
+{% endblock %}

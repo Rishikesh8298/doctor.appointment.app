@@ -1,0 +1,47 @@
+{% extends 'patient/master.html' %}{% load static %}
+{% block titleblock %}
+<title>View Profile | Doctor Appointments</title>
+{% endblock %} {% block mainblock %}
+<div class="container" style="margin-left: 8%; margin-right:8%;">
+    <!-- Personal Info started -->
+    <table class="table">
+        <thead>
+        <tr class="text-center">
+            <td colspan="2" style="font-size: larger;"><b>Personal Information</b></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>User ID</td>
+            <td>{{request.user}}</td>
+        </tr>
+        <tr>
+            <td>Full Name</td>
+            <td>{{patient.firstname}} {{patient.lastname}}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{request.user.email}}</td>
+        </tr>
+        <tr>
+            <td>Phone</td>
+            <td>{{patient.phone}}</td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>{{patient.gender}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="{% url 'patient_edit_profile' %}" class="btn btn-outline-dark">Edit Profile</a>
+    <!-- Personal Info ended -->
+    <hr>
+    <p class="lead" style="font-size: larger;"><i class="fa fa-clock-o" aria-hidden="true"></i> Recent Activity</p>
+    <hr>
+    {% if activity|length > 0 %}
+    1 appointment was taken.
+    {% else %}
+    <p class="paragraph"> No recent Activity.</p>
+    {% endif%}
+</div>
+{% endblock %}

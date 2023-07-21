@@ -1,6 +1,6 @@
 {% extends 'patient/master.html' %}{% load static %}
 {% block titleblock %}
-<title>Patients | Doctor Appointments</title>
+<title>Filter | Doctor Appointments</title>
 <link href="{% static 'css/blog.css' %}" type="text/css">
 {% endblock %} {% block mainblock %}
 <div class="container">
@@ -92,11 +92,11 @@
                 <div class="p-4 mb-3 rounded">
                     <h4 class="fst-italic">Apply filters</h4>
                 </div>
-                <form action="{%url 'apply_filter' %}" method="post">
+                <form action="{%url 'apply_filter' %}" method="POST">
                     {% csrf_token %}
                     <div class="p-2">
                         <h4 class="fst-italic small">Cities</h4>
-                        <select id="city" name="city" size="7" >
+                        <select id="city" name="city" size="7">
                             {% for city in cities %}
                             <option value="{{city}}">{{city}}</option>
                             {% endfor %}

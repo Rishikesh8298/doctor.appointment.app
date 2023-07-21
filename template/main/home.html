@@ -3,42 +3,41 @@
 <title>Doctor Appointment | Home</title>
 {% endblock %}{% block mainblock %}
 <div class="container">
-  <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
-    <div class="col-md-6 px-0">
-      <h1 class="display-4">Online Doctor Appointment</h1>
-      <p class="lead my-3">Online Doctor Appointment is a web based application that help the user to search doctors and take an appointment.</p>
+    <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+        <div class="col-md-6 px-0">
+            <h1 class="display-4">Online Doctor Appointment</h1>
+            <p class="lead my-3">Online Doctor Appointment is a web based application that help the user to search
+                doctors and take an appointment.</p>
+        </div>
     </div>
-  </div>
 
-  <div class="row mb-2">
-    <div class="col-md-6">
-      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-primary">Search</strong>
-          <h3 class="mb-0">Search Doctors</h3>
-    
-          <p class="card-text mb-auto">Search best doctors in your city for any kind of diseases.</p>
-          <a href="#" class="stretched-link"><u>Go to Serarch page</u></a>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-primary">Search</strong>
+                    <h3 class="mb-0">Search Doctors</h3>
+                    <p class="card-text mb-auto">Search best doctors in your city for any kind of diseases.</p>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                    <img src="{% static 'img/homepage/01.jpg' %}" alt="" width="200" , height="250">
+                </div>
+            </div>
         </div>
-        <div class="col-auto d-none d-lg-block">
-          <img src="{% static 'img/homepage/01.jpg' %}" alt="" width="200", height="250">
+        <div class="col-md-6">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-success">Appointment</strong>
+                    <h3 class="mb-0">Doctor Appointment</h3>
+                    <p class="mb-auto">User can easily take appointment by giving view answer and visit the doctor on
+                        the scheduled data.
+                    </p>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                    <img src="{% static 'img/homepage/02.jpg' %}" alt="" width="200" , height="250">
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-    <div class="col-md-6">
-      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-success">Appointment</strong>
-          <h3 class="mb-0">Doctor Appointment</h3>
-          <p class="mb-auto">User can easily take appointment by giving view answer and visit the doctor on the scheduled data.
-          </p>
-          <a href="#" class="stretched-link">Take an appointment</a>
-        </div>
-        <div class="col-auto d-none d-lg-block">
-          <img src="{% static 'img/homepage/02.jpg' %}" alt="" width="200", height="250">
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 {% endblock %}

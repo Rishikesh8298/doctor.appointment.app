@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 from doctor.models import DoctorInfo
+from patient.models import PatientInfo
 
 
 # Create your views here.
@@ -37,6 +38,8 @@ def signup(request):
         password = request.POST.get('password')
         if len(User.objects.filter(email=email)) == 0 and len(User.objects.filter(username=username)) == 0:
             User.objects.create_user(username=username, email=email, password=password)
+            patient = PatientInfo(userid=User.objects.get(username=username))
+            patient.save()
             messages.success(request, 'User profile is created.')
         else:
             messages.error(request, 'User is already available.')

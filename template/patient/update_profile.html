@@ -1,0 +1,82 @@
+{% extends 'patient/master.html' %}{% load static %}
+{% block titleblock %}
+<title>Update Profile | Doctor Appointments</title>
+{% endblock %} {% block mainblock %}
+<div class="container" style="margin-left: 8%; margin-right:8%;">
+    <!-- Personal Info started -->
+    <form action="{% url 'patient_edit_profile' %}" method="post">
+        {% csrf_token %}
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <td colspan="2" style="font-size: larger;"><b>Personal Information</b></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>First Name</td>
+                    <td><input type="text" class="form-control" id="firstname" name="firstname"
+                            value="{{patient.firstname}}" required>
+
+                    <td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td><input type="text" class="form-control" id="lastname" name="lastname"
+                            value="{{patient.lastname}}" required>
+
+                    <td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{request.user.email}}</td>
+                </tr>
+                <tr>
+                    <td>Phone</td>
+                    <td><input type="text" class="form-control" id="phone" name="phone" value="{{patient.phone}}"
+                            required></td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td><select id="gender" class="form-select" name="gender" required>
+                            {% if patient.gender == "Male" %}
+                            <option value="Male" selected>Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                            {% elif patient.gender == "Female" %}
+                            <option value="Female" selected>Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Other">Other</option>
+                            {% elif patient.gender == "Other" %}
+                            <option value="Other" selected>Other</option>
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                            {% else %}
+                            <option selected>Choose..</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                            {%endif%}
+                        </select></td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="submit" class="btn btn-outline-dark" value="Update Profile" />
+        <!-- Personal Info ended -->
+    </form>
+
+</div>
+<script>
+    let firstname = "{{patient.firstname}}";
+    let lastname = "{{patient.lastname}}";
+    let phone = "{{patient.phone}}";
+    let gender = "{{patient.gender}}";
+    if (firstname === "None") {
+        document.getElementById("firstname").value = "";
+    } if (lastname === "None") {
+        document.getElementById("lastname").value = "";
+    } if (phone === "None") {
+        document.getElementById("phone").value = "";
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'patient/master.html' %}{% load static %}
+{% block titleblock %}
+<title>Take Appointment | Doctor Appointments</title>
+{% endblock %} {% block mainblock %}
+<div class="container">
+    <div class="" style="margin-left: 8%; margin-right:8%; margin-top: 8%">
+        <p class="h2 text-center bold">Appointment Form</p>
+        <p class="text-center lead">Dr. {{doctor.firstname}} {{doctor.lastname}}</p>
+        <p class="small text-center">({{doctor.day_of_week}})</p>
+
+        <form action="{% url 'take_appointment' doctor_id %}" method="post">
+            {% csrf_token %} {% if messages %}
+            {% for message in messages %}
+            {%if message.tags == 'error' %}
+            <div class="alert alert-danger" role="alert">
+                {{message}}
+            </div>
+            {% endif %}
+            {% endfor %}
+
+            {% endif %}
+            <div class="row">
+                <div class="col-12">
+                    <label for="appointment_date" class="form-label">Choose a date</label>
+                    <select class="form-control" id="appointment_date" name="appointment_date" required>
+                        <option selected>Available dates</option>
+                        {% for i in date_list %}
+                        <option value="{{i}}">{{i}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Appointment</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+var today = new Date().toISOString().split('T')[0];
+document.getElementsByName("appointment_date")[0].setAttribute('min', today);
+
+
+</script>
+{% endblock %}

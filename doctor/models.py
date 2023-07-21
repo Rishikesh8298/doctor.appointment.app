@@ -72,7 +72,6 @@ class Appointment(models.Model):
     """This models holds appointment Details for patients."""
     doctor_id = models.ForeignKey(DoctorInfo, blank=False, on_delete=CASCADE, null=False)
     patient_id = models.ForeignKey(PatientInfo, blank=False, on_delete=CASCADE, null=False)
-    probable_start_time = models.TimeField()
-    actual_end_time = models.TimeField()
+    probable_start_time = models.TimeField(null=True, default="09:30", max_length=10)
+    actual_end_time = models.TimeField(null=True, default="09:30", max_length=10)
     appointment_date = models.DateField()
-

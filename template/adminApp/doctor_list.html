@@ -28,5 +28,30 @@
         {% endfor %}
         </tbody>
     </table>
+
+    <!-- Pagination Begin -->
+    <div class="col-md-12 p-2 mt-5 text-light text-center" style="margin-bottom: 5%;">
+        {% if main.has_previous %} <a
+            href="?page={{main.previous_page_number}}"
+            data-toggle="tooltip" title="Previous"
+            class="btn btn-light btn-sm text-dark">&laquo;</a>
+        {% endif %}
+        {% for i in main.paginator.page_range %}
+        {% if main.number == i %}
+        <a href="#" data-toggle="tooltip" title="{{Disables}}"
+           class="btn btn-primary text-dark  disabled">{{i}}</a>
+        {% elif i > main.number|add:'-3' and i < main.number|add:'3' %}
+        <a href="?page={{i}}" data-toggle="tooltip"
+           title="{{i}}" class="btn btn-light  btn-sm text-dark">{{i}}</a>
+        {% endif %}
+        {% endfor %}
+        {% if main.has_next %}
+        <a href="?page={{main.next_page_number}}"
+           data-toggle="tooltip" title="Next"
+           class="btn btn-sm btn-light text-dark"> &raquo;
+        </a>
+        {% endif %}
+    </div>
+    <!-- Pagination Ended -->
 </div>
 {% endblock %}

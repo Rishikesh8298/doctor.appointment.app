@@ -1,15 +1,13 @@
-from random import shuffle, choices
-from string import digits, ascii_lowercase, ascii_uppercase
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.core.mail import EmailMessage
 from django.db import IntegrityError
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from doctor.models import DoctorInfo, DoctorSpecialization, Office, Qualification, DoctorAvailability
+from module.email_send import emailSend
+from module.pagination import create_pagination
+from module.password_generator import password_generator
 from .models import Specialty
 
 
@@ -21,8 +19,10 @@ def admin_dashboard(request):
 
 @login_required(login_url='/login/')
 def doctor_list(request):
-    doctors = DoctorInfo.objects.all()
-    return render(request, 'adminApp/doctor_list.html', {"main": doctors})
+    doctors = DoctorInfo.objects.all().order_by('-pk')
+    page = request.GET.get('page')
+    main = create_pagination(main=doctors, no=20, page=page)
+    return render(request, 'adminApp/doctor_list.html', {"main": main})
 
 
 @login_required(login_url='/login/')
@@ -89,40 +89,11 @@ def password_sent(request, userid):
     Thank You, 
     Admin
     """
-    _emailSend(subject, message, userinfo.email)
+    emailSend(subject, message, userinfo.email)
     doc = DoctorInfo.objects.get(userid=userinfo)
     doc.is_password_sent = True
     doc.save()
     return redirect("doctor_list")
-
-
-@login_required(login_url='/login/')
-def import_specialty_data(request):
-    if request.method == "POST":
-        csv_file = request.FILES['specialty']
-        if not csv_file.name.endswith(".csv"):
-            error = "Please Input csv file"
-            messages.error(request, error)
-
-        if csv_file.multiple_chunks():
-            error = "Please Input CSV file"
-            messages.error(request, error)
-
-        file_data = csv_file.read().decode("utf-8")
-        lines = file_data.split("\n")
-        for line in lines:
-            fields = line.split(",")
-            try:
-                if fields[0] == "Specialty":
-                    pass
-                else:
-                    specialty = fields[0]
-                    if len(Specialty.objects.filter(name=specialty)) == 0:
-                        data = Specialty(name=specialty)
-                        data.save()
-            except:
-                raise
-    return render(request, "adminApp/import_specialty.html")
 
 
 @login_required(login_url='/login/')
@@ -151,7 +122,7 @@ def import_doctor_data(request):
                     address1 = fields[4]
                     address2 = fields[5]
                     city = fields[6]
-                    county = fields[7]
+                    country = fields[7]
                     state = fields[8]
                     zipcode = fields[9]
                     phone = fields[10]
@@ -169,18 +140,20 @@ def import_doctor_data(request):
                         gender = "Female"
 
                     User.objects.create_user(username=username, email=email, password=password_generator())
+                    specialty = DoctorSpecialization(userid=User.objects.get(username=username),
+                                                     specialization_id=Specialty.objects.get(name=specialty))
+                    specialty.save()
                     doctor = DoctorInfo(userid=User.objects.get(username=username), firstname=firstname,
                                         lastname=lastname,
                                         phone=phone, gender=gender)
                     doctor.save()
-                    specialty = DoctorSpecialization(userid=User.objects.get(username=username),
-                                                     specialization_id=Specialty.objects.get(name=specialty))
-                    specialty.save()
+
                     office = Office(userid=User.objects.get(username=username), address1=address1,
-                                    address2=address2, city=city, state=state, country=county, zipcode=zipcode,
+                                    address2=address2, city=city, state=state, country=country, zipcode=zipcode,
                                     time_slot_per_patient_time=time_slot, first_consultation_fee=fee,
                                     followup_consultation_fee=follow_up)
                     office.save()
+
                     qualification = Qualification(userid=User.objects.get(username=username))
                     qualification.save()
                     doctorAvailability = DoctorAvailability(userid=User.objects.get(username=username),
@@ -191,18 +164,3 @@ def import_doctor_data(request):
             except:
                 print("Okkay")
     return render(request, "adminApp/import_doctor.html")
-
-
-def password_generator():
-    lower_letter = choices([i for i in ascii_lowercase], k=4)
-    digit = choices([i for i in digits], k=3)
-    upper_letter = choices([i for i in ascii_uppercase], k=1)
-    new_password = lower_letter + digit + upper_letter
-    shuffle(new_password)
-    return "".join(new_password)
-
-
-def _emailSend(*args):
-    email = EmailMessage(subject=args[0], body=args[1], to=[args[2]])
-    email.send()
-    return HttpResponse(status=204)

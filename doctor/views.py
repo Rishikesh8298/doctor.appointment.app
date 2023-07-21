@@ -1,9 +1,11 @@
+import datetime as dt
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
-from .models import DoctorInfo, DoctorSpecialization, Office, Qualification, DoctorAvailability
+from .models import DoctorInfo, DoctorSpecialization, Office, Qualification, DoctorAvailability, Appointment
 
 
 # Create your views here.
@@ -46,6 +48,27 @@ def update_profile(request):
     office = Office.objects.get(userid=request.user)
     qualification = Qualification.objects.get(userid=request.user)
     doctorAvailability = DoctorAvailability.objects.get(userid=request.user)
+    doctors = {
+        "phone": doctorinfo.phone,
+        "specialty": specialty.specialization_id.name,
+        "professional_statement": doctorinfo.professional_statement,
+        "practicing_year": str(doctorinfo.practicing_year),
+        "course_name": qualification.name,
+        "institute_name": qualification.institute_name,
+        "passing_year": str(qualification.passing_year),
+        "day_of_week": doctorAvailability.day_of_week,
+        "start_time": str(doctorAvailability.start_time),
+        "end_time": str(doctorAvailability.end_time),
+        "address1": office.address1,
+        "address2": office.address2,
+        "city": office.city,
+        "state": office.state,
+        "country": office.country,
+        "zipcode": office.zipcode,
+        "time_slot_per_patient_time": office.time_slot_per_patient_time,
+        "first_consultation_fee": office.first_consultation_fee,
+        "followup_consultation_fee": office.followup_consultation_fee,
+    }
     if request.method == "POST":
         # qualification
         course_name = request.POST.get("course_name")
@@ -65,9 +88,11 @@ def update_profile(request):
         state = request.POST.get("state")
         country = request.POST.get("country")
         zipcode = request.POST.get("zipcode")
-        time_slot_per_patient_time = request.POST.get("time_slot_per_patient_time")
+        time_slot_per_patient_time = request.POST.get(
+            "time_slot_per_patient_time")
         first_consultation_fee = request.POST.get("first_consultation_fee")
-        followup_consultation_fee = request.POST.get("followup_consultation_fee")
+        followup_consultation_fee = request.POST.get(
+            "followup_consultation_fee")
 
         doctorinfo.professional_statement = professional_statement
         doctorinfo.practicing_year = practicing_year
@@ -89,13 +114,29 @@ def update_profile(request):
         office.time_slot_per_patient_time = time_slot_per_patient_time
         office.first_consultation_fee = first_consultation_fee
         office.followup_consultation_fee = followup_consultation_fee
-        
+
         doctorinfo.save()
         doctorAvailability.save()
         qualification.save()
         office.save()
         return redirect("view_profile")
+    return render(request, "doctor/edit_profile.html", {"doctors": doctors, })
 
-    return render(request, "doctor/edit_profile.html",
-                  {"doctorinfo": doctorinfo, "specialty": specialty, "office": office, "qualification": qualification,
-                   "doctorAvailability": doctorAvailability})
+
+@login_required(login_url='/login/')
+def view_appointments(request):
+    appointmentList = Appointment.objects.filter(doctor_id=DoctorInfo.objects.get(userid=request.user))
+    scheduled = [i for i in appointmentList if i.appointment_date >= dt.date.today()]
+    pastAppointments = [i for i in appointmentList if i.appointment_date < dt.date.today()]
+    return render(request, "doctor/view_appointment.html", {"scheduled": scheduled, "pastAppointments": pastAppointments})
+
+
+@login_required(login_url='/login/')
+def today_appointments(request):
+    appointments = Appointment.objects.filter(doctor_id=DoctorInfo.objects.get(userid=request.user)).order_by(
+        "-pk")
+    appointmentList = []
+    for i in appointments:
+        if i.appointment_date == dt.datetime.today():
+            appointmentList.append(i)
+    return render(request, "doctor/today_appointment.html", {"appointmentList": appointmentList})

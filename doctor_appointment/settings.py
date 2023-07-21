@@ -62,14 +62,23 @@ WSGI_APPLICATION = 'doctor_appointment.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
+# doctor_appointment
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'doctor_appointment',
+        'USER': 'root',
+        'PASSWORD': '7upNimbooz'
+    }
+
+}
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 

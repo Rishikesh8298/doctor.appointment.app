@@ -9,31 +9,31 @@
         <!-- Personal Info started -->
         <table class="table">
             <thead>
-            <tr>
-                <td colspan="2" style="font-size: larger;"><b>Personal Information</b></td>
-            </tr>
+                <tr>
+                    <td colspan="2" style="font-size: larger;"><b>Personal Information</b></td>
+                </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>User ID</td>
-                <td>{{request.user}}</td>
-            </tr>
-            <tr>
-                <td>Full Name</td>
-                <td>Rishikesh Karn</td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td>{{request.user.email}}</td>
-            </tr>
-            <tr>
-                <td>Phone</td>
-                <td>{{doctorinfo.phone}}</td>
-            </tr>
-            <tr>
-                <td>Specialization</td>
-                <td>{{specialty.specialization_id.name}}</td>
-            </tr>
+                <tr>
+                    <td>User ID</td>
+                    <td>{{request.user}}</td>
+                </tr>
+                <tr>
+                    <td>Full Name</td>
+                    <td>Rishikesh Karn</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{request.user.email}}</td>
+                </tr>
+                <tr>
+                    <td>Phone</td>
+                    <td>{{doctors.phone}}</td>
+                </tr>
+                <tr>
+                    <td>Specialization</td>
+                    <td>{{doctors.specialty}}</td>
+                </tr>
             </tbody>
         </table>
         <!-- Personal Info ended -->
@@ -43,31 +43,32 @@
             <hr class="dropdown-divider">
             <div class="col-12">
                 <label for="address1" class="form-label">Address (Street Number or Road Name, Landmark)</label>
-                <input type="text" class="form-control" id="address1" name="address1" value="{{office.address1}}"
-                       required>
+                <input type="text" class="form-control" id="address1" name="address1" value="{{doctors.address1}}"
+                    required>
             </div>
             <div class="col-12">
                 <label for="address2" class="form-label">Address 2 (Apartment, studio, or floor)</label>
-                <input type="text" class="form-control" id="address2" name="address2" value="{{office.address2}}"
-                       required>
+                <input type="text" class="form-control" id="address2" name="address2" value="{{doctors.address2}}">
             </div>
             <div class="col-md-4">
                 <label for="city" class="form-label">City</label>
-                <input type="text" class="form-control" id="city" name="city" value="{{office.city}}" required>
+                <input type="text" class="form-control" id="city" name="city" value="{{doctors.city}}" required>
             </div>
             <div class="col-md-3">
                 <label for="state" class="form-label">State</label>
-                <input type="text" class="form-control" id="state" name="state" value="{{office.state}}" required>
+                <input type="text" class="form-control" id="state" name="state" value="{{doctors.state}}" required>
 
             </div>
             <div class="col-md-3">
                 <label for="country" class="form-label">Country</label>
-                <input type="text" class="form-control" name="country" id="country" value="{{office.country}}" required>
+                <input type="text" class="form-control" name="country" id="country" value="{{doctors.country}}"
+                    required>
 
             </div>
             <div class="col-md-2">
                 <label for="zipcode" class="form-label">ZipCode</label>
-                <input type="text" class="form-control" name="zipcode" id="zipcode" value="{{office.zipcode}}" required>
+                <input type="text" class="form-control" name="zipcode" id="zipcode" value="{{doctors.zipcode}}"
+                    required>
             </div>
         </div>
         <!-- Address Section ended -->
@@ -78,28 +79,28 @@
                     <div class="card-body">
                         <table class="table">
                             <thead>
-                            <tr>
-                                <td colspan="2" style="font-size: larger;"><b>Higher Qualification *</b></td>
-                            </tr>
+                                <tr>
+                                    <td colspan="2" style="font-size: larger;"><b>Higher Qualification *</b></td>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Course Name</td>
-                                <td><input type="text" name="course_name" class="form-control"
-                                           value="{{qualification.name}}" required></td>
-                            </tr>
-                            <tr>
-                                <td>Institute Name</td>
-                                <td><input type="text" name="institute_name" class="form-control"
-                                           value="{{qualification.institute_name}}" required></td>
+                                <tr>
+                                    <td>Course Name</td>
+                                    <td><input type="text" name="course_name" id="course_name" class="form-control"
+                                            value="{{doctors.course_name}}" required></td>
+                                </tr>
+                                <tr>
+                                    <td>Institute Name</td>
+                                    <td><input type="text" name="institute_name" id="institute_name"
+                                            class="form-control" value="{{doctors.institute_name}}" required></td>
 
-                            </tr>
-                            <tr>
-                                <td>Passing Year</td>
-                                <td><input type="date" name="passing_year" class="form-control"
-                                           value="{{qualification.passing_year}}" required></td>
-                                <td></td>
-                            </tr>
+                                </tr>
+                                <tr>
+                                    <td>Passing Year</td>
+                                    <td><input type="date" name="passing_year" id="passing_year" class="form-control"
+                                            value="{{doctors.passing_year}}" required></td>
+                                    <td></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -112,26 +113,39 @@
                     <div class="card-body">
                         <table class="table">
                             <thead>
-                            <tr>
-                                <td colspan="2" style="font-size: larger;"><b>Availability *</b></td>
-                            </tr>
+                                <tr>
+                                    <td colspan="2" style="font-size: larger;"><b>Availability *</b></td>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Day of Week</td>
-                                <td><input type="text" name="day_of_week" class="form-control"
-                                           value="{{doctorAvailability.day_of_week}}" required></td>
-                            </tr>
-                            <tr>
-                                <td>Patient visit start time</td>
-                                <td><input type="time" name="start_time" class="form-control"
-                                           value="{{doctorAvailability.start_time}}" required></td>
-                            </tr>
-                            <tr>
-                                <td>Patient visit end time</td>
-                                <td><input type="time" name="end_time" class="form-control"
-                                           value="{{doctorAvailability.end_time}}" required></td>
-                            </tr>
+                                <tr>
+                                    <td>Day of Week</td>
+
+                                    <td><select id="day_of_week" name="day_of_week" class="form-control" required>
+                                            <option value="{{doctors.day_of_week}}">{{doctors.day_of_week}}</option>
+                                            <option value="Monday">Monday</option>
+                                            <option value="Tuesday">Tuesday</option>
+                                            <option value="Wednesday">Wednesday</option>
+                                            <option value="Thursday">Thursday</option>
+                                            <option value="Friday">Friday</option>
+                                            <option value="Saturday">Saturday</option>
+                                            <option value="Sunday">Sunday</option>
+                                            <option value="All Days">All Days</option>
+                                            <option value="Weekends">Weekends</option>
+                                            <option value="Weekdays">Weekdays</option>
+                                        </select></td>
+
+                                </tr>
+                                <tr>
+                                    <td>Patient visit start time</td>
+                                    <td><input type="time" name="start_time" id="start_time" class="form-control"
+                                            value="{{doctors.start_time}}" required></td>
+                                </tr>
+                                <tr>
+                                    <td>Patient visit end time</td>
+                                    <td><input type="time" name="end_time" id="end_time" class="form-control"
+                                            value="{{doctors.end_time}}" required></td>
+                                </tr>
 
                             </tbody>
                         </table>
@@ -149,21 +163,26 @@
                     <div class="card-body">
                         <table class="table">
                             <thead>
-                            <tr>
-                                <td colspan="2" style="font-size: larger;"><b>Bio *</b></td>
-                            </tr>
+                                <tr>
+                                    <td colspan="2" style="font-size: larger;"><b>Bio *</b></td>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Practicing from</td>
-                                <td><input type="date" name="practicing_year" class="form-control"
-                                           value="{{doctorinfo.practicing_year}}" required></td>
-                            </tr>
-                            <tr>
-                                <td>Professional Statement</td>
-                                <td><textarea name="professional_statement" class="form-control" rows="3" required>{{doctorinfo.professional_statement}}</textarea>
+                                <tr>
+                                    <td>Practicing from</td>
+                                    <div id="information" class="form-text"></div>
+                                    <td><input type="date" name="practicing_year" id="practicing_year"
+                                            onchange="validation1()" class="form-control"
+                                            value="{{doctors.practicing_year}}" aria-describedby="information" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Professional Statement</td>
+                                    <td><textarea name="professional_statement" id="professional_statement"
+                                            class="form-control" rows="3"
+                                            required>{{doctors.professional_statement}}</textarea>
 
-                            </tr>
+                                </tr>
                             </tbody>
 
                         </table>
@@ -178,28 +197,31 @@
                     <div class="card-body">
                         <table class="table">
                             <thead>
-                            <tr>
-                                <td colspan="2" style="font-size: larger;"><b>Time & Fee structure *</b></td>
-                            </tr>
+                                <tr>
+                                    <td colspan="2" style="font-size: larger;"><b>Time & Fee structure *</b></td>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>Time slot per patient time</td>
-                                <td><input type="text" name="time_slot_per_patient_time" class="form-control"
-                                           value="{{office.time_slot_per_patient_time}}" required></td>
+                                <tr>
+                                    <td>Time slot per patient time</td>
+                                    <td><input type="text" name="time_slot_per_patient_time"
+                                            id="time_slot_per_patient_time" class="form-control"
+                                            value="{{doctors.time_slot_per_patient_time}}" required></td>
 
-                            </tr>
-                            <tr>
-                                <td>First consultation fee</td>
-                                <td><input type="text" name="first_consultation_fee" class="form-control"
-                                           value="{{office.first_consultation_fee}}" required></td>
+                                </tr>
+                                <tr>
+                                    <td>First consultation fee</td>
+                                    <td><input type="text" name="first_consultation_fee" id="first_consultation_fee"
+                                            class="form-control" value="{{doctors.first_consultation_fee}}" required>
+                                    </td>
 
-                            </tr>
-                            <tr>
-                                <td>Followup consultation fee</td>
-                                <td><input type="text" name="followup_consultation_fee" class="form-control"
-                                           value="{{office.followup_consultation_fee}}" required></td>
-                            </tr>
+                                </tr>
+                                <tr>
+                                    <td>Followup consultation fee</td>
+                                    <td><input type="text" name="followup_consultation_fee"
+                                            id="followup_consultation_fee" class="form-control"
+                                            value="{{doctors.followup_consultation_fee}}" required></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -208,10 +230,106 @@
             <!-- Time & Fee structure ended -->
         </div>
 
-        <input type="submit" value="Update" class="btn btn-outline-info">
+        <input type="submit" value="Update" id="update" class="btn btn-outline-info">
     </form>
     <br>
     <br>
     <br>
 </div>
+<script>
+    //  Address
+    let address1 = "{{doctors.address1}}";
+    let address2 = "{{doctors.address2}}";
+    let city = "{{doctors.city}}";
+    let country = "{{doctors.country}}";
+    let state = "{{doctors.state}}";
+    let zipcode = "{{doctors.zipcode}}";
+    // Qualification
+    let course_name = "{{doctors.name}}";
+    let institute_name = "{{doctors.institute_name}}";
+    let passing_year = "{{doctors.passing_year}}";
+    // Doctor Availability
+    let day_of_week = "{{doctors.day_of_week}}";
+    let start_time = "{{doctors.start_time}}";
+    let end_time = "{{doctors.end_time}}";
+    // Bio 
+    let practicing_year = "{{doctors.practicing_year}}";
+    let professional_statement = "{{doctors.professional_statement}}";
+    // Time and Fee Structure
+    let time_slot_per_patient_time = "{{doctors.time_slot_per_patient_time}}";
+    let first_consultation_fee = "{{doctors.first_consultation_fee}}";
+    let followup_consultation_fee = "{{doctors.followup_consultation_fee}}";
+
+    if (address1 === "None") {
+        document.getElementById("address1").value = "";
+    }
+    if (address2 === "None") {
+        document.getElementById("address2").value = "";
+    }
+    if (city === "None") {
+        document.getElementById("city").value = "";
+    }
+    if (country === "None") {
+        document.getElementById("country").value = "";
+    }
+    if (state === "None") {
+        document.getElementById("state").value = "";
+    }
+    if (zipcode === "None") {
+        document.getElementById("zipcode").value = "";
+    }
+    if (course_name === "None") {
+        document.getElementById("course_name").value = "";
+    }
+    if (institute_name === "None") {
+        document.getElementById("institute_name").value = "";
+    }
+    if (day_of_week === "None") {
+        document.getElementById("day_of_week").value = "";
+    }
+    if (professional_statement === "None") {
+        document.getElementById("professional_statement").value = "";
+    }
+    if (time_slot_per_patient_time === "None") {
+        document.getElementById("time_slot_per_patient_time").value = "";
+    }
+    if (first_consultation_fee === "None") {
+        document.getElementById("first_consultation_fee").value = "";
+    }
+    if (followup_consultation_fee === "None") {
+        document.getElementById("followup_consultation_fee").value = "";
+    }
+
+    var today = new Date();
+    var dd = today.getDate() - 1;
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear() - 4;
+
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+
+    max = yyyy + '-' + mm + '-' + dd;
+    min = (yyyy - 40) + '-' + '01' + '-' + '01';
+    document.getElementById("passing_year").setAttribute("max", max);
+    document.getElementById("passing_year").setAttribute("min", min);
+    function validation1() {
+        document.getElementById("practicing_year").setAttribute("min",document.getElementById("passing_year").value);
+        let passing_year = document.getElementById("passing_year").value;
+        let practicing_year = document.getElementById("practicing_year").value;
+        if (passing_year > practicing_year) {
+            document.getElementById("information").innerHTML = "Practicing year must be less than or equal to passing year otherwise you cannot update your info.";
+            document.getElementById("information").style.color = 'red';
+            document.getElementById("update").disabled = true;
+        } else if (passing_year == practicing_year) {
+            console.log("both equal");
+        } else {
+            console.log("practicing_year");
+        }
+    }
+</script>
 {% endblock %}
