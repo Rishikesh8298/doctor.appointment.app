@@ -1,0 +1,14 @@
+{% extends 'doctor/master.html' %}{% load static %}{% block titleblock %}
+<title>{{title}} | Description</title>
+{% endblock %}
+{% block headingblock %}Description{% endblock %}
+{% block mainblock %}
+<div class="border-left bg-info text-dark p-3" style="enable-gradients:true">
+    <h5 class="h2">{{main.date_of_unavailability}}</h5>
+    <span>
+        <span class="text-danger">Description: </span>
+        <br>
+        {{main.reason_of_unavailability|safe}}
+    </span>
+</div>
+{% endblock %}

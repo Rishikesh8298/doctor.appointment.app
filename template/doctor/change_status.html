@@ -1,0 +1,26 @@
+{% extends 'doctor/master.html' %}{% load static %}
+{% block titleblock %}
+<title>Doctor Appointment | Update status</title>
+{% endblock %} {% block headblock %}Update the status {% endblock %}
+{% block mainblock %}
+<div class="container">
+    <form method="post" action="{% url 'change_status' main.pk %}">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col">
+                <label for="patient">Patient name</label>
+                <input type="text" class="form-control" name="patient" id="patient" value="{{main.patient_id}}" readonly>
+            </div>
+            <div class="col">
+                <label for="status">Status</label>
+                <select class="form-select" aria-label="Default select example" name="status" id="status">
+                    <option value="Not-Visit">Not-Visited</option>
+                    <option value="Visit">Visited</option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <input type="submit" class="btn btn-outline-success" value="Update">
+    </form>
+</div>
+{% endblock %}

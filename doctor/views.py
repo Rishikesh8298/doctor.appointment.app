@@ -5,7 +5,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
-from .models import DoctorInfo, DoctorSpecialization, Office, Qualification, DoctorAvailability, Appointment
+from module.dates import get_date_list
+from module.pagination import create_pagination
+from patient.models import PatientInfo
+from .models import DoctorInfo, DoctorSpecialization, Office, Qualification, DoctorAvailability, Appointment, \
+    Unavailability
 
 
 # Create your views here.
@@ -49,6 +53,8 @@ def update_profile(request):
     qualification = Qualification.objects.get(userid=request.user)
     doctorAvailability = DoctorAvailability.objects.get(userid=request.user)
     doctors = {
+        "firstname": doctorinfo.firstname,
+        "lastname": doctorinfo.lastname,
         "phone": doctorinfo.phone,
         "specialty": specialty.specialization_id.name,
         "professional_statement": doctorinfo.professional_statement,
@@ -126,17 +132,71 @@ def update_profile(request):
 @login_required(login_url='/login/')
 def view_appointments(request):
     appointmentList = Appointment.objects.filter(doctor_id=DoctorInfo.objects.get(userid=request.user))
-    scheduled = [i for i in appointmentList if i.appointment_date >= dt.date.today()]
     pastAppointments = [i for i in appointmentList if i.appointment_date < dt.date.today()]
-    return render(request, "doctor/view_appointment.html", {"scheduled": scheduled, "pastAppointments": pastAppointments})
+    page = request.GET.get('page')
+    main = create_pagination(main=pastAppointments, no=30, page=page)
+    return render(request, "doctor/view_appointment.html",
+                  {"main": main})
 
 
 @login_required(login_url='/login/')
 def today_appointments(request):
-    appointments = Appointment.objects.filter(doctor_id=DoctorInfo.objects.get(userid=request.user)).order_by(
-        "-pk")
-    appointmentList = []
-    for i in appointments:
-        if i.appointment_date == dt.datetime.today():
-            appointmentList.append(i)
+    appointments = Appointment.objects.filter(doctor_id=DoctorInfo.objects.get(userid=request.user))
+    appointmentList = [i for i in appointments if i.appointment_date == dt.date.today() and i.status == "Not-Visit"]
     return render(request, "doctor/today_appointment.html", {"appointmentList": appointmentList})
+
+
+@login_required(login_url='/login/')
+def upcoming_appointments(request):
+    appointmentList = Appointment.objects.filter(doctor_id=DoctorInfo.objects.get(userid=request.user))
+    scheduled = [i for i in appointmentList if i.appointment_date > dt.date.today() and i.status != "Cancel"]
+    return render(request, "doctor/upcoming_appointments.html", {"main": scheduled})
+
+
+@login_required(login_url='/login/')
+def change_status(request, id):
+    main = Appointment.objects.get(id=id)
+    if request.method == "POST":
+        status = request.POST.get("status")
+        main.status = status
+        main.save()
+        return redirect("today_appointments")
+    return render(request, "doctor/change_status.html", {"main": main})
+
+
+@login_required(login_url='/login/')
+def unavailability(request):
+    doctor = DoctorAvailability.objects.get(userid=User.objects.get_by_natural_key(username=request.user))
+    date_list = get_date_list(doctor.day_of_week)
+    for i in Unavailability.objects.filter(
+            doctor_id=DoctorInfo.objects.get(userid=User.objects.get_by_natural_key(username=request.user))):
+        if str(i.date_of_unavailability) in date_list:
+            date_list.remove(str(i.date_of_unavailability))
+    if request.method == "POST":
+        date_of_unavailability = request.POST.get("date")
+        reason_of_unavailability = request.POST.get("reason")
+        reason = Unavailability(
+            doctor_id=DoctorInfo.objects.get(userid=User.objects.get_by_natural_key(username=request.user)),
+            date_of_unavailability=date_of_unavailability,
+            reason_of_unavailability=reason_of_unavailability)
+        reason.save()
+    return render(request, "doctor/reason_of_unavailability.html", {"date_list": date_list})
+
+
+@login_required(login_url='/login/')
+def view_patient_profile(request, patient_id):
+    patient = PatientInfo.objects.get(userid=User.objects.get_by_natural_key(username=patient_id))
+    return render(request, "doctor/view_patient_profile.html", {"patient": patient})
+
+
+@login_required(login_url='/login/')
+def unavailability_list(request):
+    main = Unavailability.objects.filter(
+        doctor_id=DoctorInfo.objects.get(userid=User.objects.get_by_natural_key(username=request.user))).order_by('-pk')
+    return render(request, "doctor/list_of_unavailability.html", {"main": main})
+
+
+@login_required(login_url='/login/')
+def view_reason(request, id):
+    main = Unavailability.objects.get(id=id)
+    return render(request, "doctor/view_reason.html", {"main": main})

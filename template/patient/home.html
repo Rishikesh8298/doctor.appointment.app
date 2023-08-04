@@ -6,85 +6,8 @@
 <div class="container">
     <div class="row g-5">
         <div class="col-md-9">
-            {% if doctors|length > 0 %}
-            <article class="blog-post">
-                <div class="p-2 mt-3">
-                    {% for i in doctors %}
-                    <div class="row mt-3 p-2">
-                        <div class="card" style="max-width: 100%;">
-                            <div class="row">
-                                <div class="col-md-2 p-2">
-                                    {% if i.gender == "Male" %}
-                                    <img src="{% static 'img/male.png' %}" class="img-fluid rounded-start" alt="...">
-                                    {% else %}
-                                    <img src="{% static 'img/female.png' %}" class="img-fluid rounded-start" alt="...">
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Dr. {{i.firstname}} {{i.lastname}}</h5>
-                                        <p class="card-text"><small class="text-muted">{{i.specialty}}</small></p>
-                                        <p class="card-text">{{i.address1}} {{i.address2}} {{i.city}} {{i.state}}
-                                            {{i.country}},
-                                            {{i.zipcode}}</p>
-                                        <p class="card-text"><small class="text-muted">Fee is Rs.
-                                            {{i.first_consultation_fee}}</small>
-                                        </p>
-                                        <p class="card-text"><small class="text-muted">Available on
-                                            {{i.day_of_week}}</small>
-                                        </p>
-                                        {% if appointments|length == 0%}
-                                        <hr>
-                                        <div class="row">
-                                            <p class="card-text small text-end text-muted">
-                                                <a href="{% url 'take_appointment' i.userid %}" class="btn btn-success">Take
-                                                    appointment</a>
-                                            </p>
-                                        </div>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-
-
-                </div>
-            </article>
-            <nav class="blog-pagination" aria-label="Pagination">
-                <!-- Pagination Begin -->
-                <div class="col-md-12 p-2 mt-5 text-light text-center" style="margin-bottom: 5%;">
-                    {% if doctors.has_previous %} <a
-                        href="?page={{doctors.previous_page_number}}"
-                        data-toggle="tooltip" title="Previous"
-                        class="btn btn-light btn-sm text-dark">&laquo;</a>
-                    {% endif %}
-                    {% for i in doctors.paginator.page_range %}
-                    {% if doctors.number == i %}
-                    <a href="#" data-toggle="tooltip" title="{{Disables}}"
-                       class="btn btn-primary text-dark  disabled">{{i}}</a>
-                    {% elif i > doctors.number|add:'-3' and i < doctors.number|add:'3' %}
-                    <a href="?page={{i}}" data-toggle="tooltip"
-                       title="{{i}}" class="btn btn-light  btn-sm text-dark">{{i}}</a>
-                    {% endif %}
-                    {% endfor %}
-                    {% if doctors.has_next %}
-                    <a href="?page={{doctors.next_page_number}}"
-                       data-toggle="tooltip" title="Next"
-                       class="btn btn-sm btn-light text-dark"> &raquo;
-                    </a>
-                    {% endif %}
-                </div>
-                <!-- Pagination Ended -->
-            </nav>
-            {% else %}
-            <article class="blog-post">
-                <div class="p-2 mt-3">
-                    <p class="text-center text-dark h1">No Doctor available.</p>
-                </div>
-            </article>
-            {% endif%}
+            <h4 class="h1 text-center fst-italic mt-3" style="margin-top:5%;">Search doctors based on related health issue and your current
+                cities.</h4>
         </div>
 
         <div class="col-md-3">
@@ -96,7 +19,7 @@
                     {% csrf_token %}
                     <div class="p-2">
                         <h4 class="fst-italic small">Cities</h4>
-                        <select id="city" name="city" size="7" >
+                        <select id="city" name="city" size="7">
                             {% for city in cities %}
                             <option value="{{city}}">{{city}}</option>
                             {% endfor %}
@@ -113,8 +36,8 @@
                         <div class="col">
                             <input type="submit" id="search" class="btn btn-sm btn-outline-info" value="Search">
                         </div>
-
                     </div>
+                    <br>
                 </form>
             </div>
         </div>

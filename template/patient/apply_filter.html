@@ -33,23 +33,25 @@
                                         <p class="card-text"><small class="text-muted">Available on
                                             {{i.day_of_week}}</small>
                                         </p>
-                                        {% if appointments|length == 0%}
                                         <hr>
                                         <div class="row">
-                                            <p class="card-text small text-end text-muted">
-                                                <a href="{% url 'take_appointment' i.userid %}" class="btn btn-success">Take
+                                            <p class="card-text text-end">
+                                                <a href="{% url 'view_doctor' i.userid %}" class="btn btn-sm btn-info">View
+                                                    Profile</a>
+                                                {% if appointments|length == 0 %}
+                                                <a href="{% url 'take_appointment' i.userid %}"
+                                                   class="btn btn-sm btn-success">Take
                                                     appointment</a>
+                                                {% endif %}
                                             </p>
                                         </div>
-                                        {% endif %}
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     {% endfor %}
-
-
                 </div>
             </article>
             <nav class="blog-pagination" aria-label="Pagination">

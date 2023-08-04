@@ -1,0 +1,35 @@
+{% extends 'doctor/master.html' %}{%load static %}
+{% block titleblock %}
+<title>View Profile | Doctor Appointments</title>
+{% endblock %} {% block mainblock %}
+<div class="container">
+    <!-- Personal Info started -->
+    <table class="table">
+        <thead>
+        <tr class="text-center">
+            <td colspan="2" style="font-size: larger;"><b>Patient Info</b></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Full Name</td>
+            <td>{{patient.firstname}} {{patient.lastname}}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{patient.userid.email}}</td>
+        </tr>
+        <tr>
+            <td>Phone</td>
+            <td>{{patient.phone}}</td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>{{patient.gender}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- Personal Info ended -->
+
+</div>
+{% endblock %}

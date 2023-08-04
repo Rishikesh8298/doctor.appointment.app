@@ -16,7 +16,7 @@
                             <p class="card-text">Date of Appointment: <span
                                     class="text-muted">{{i.appointment_date}}</span></p>
                             <p class="card-text">Time-Slot:<span class="text-muted small"> {{i.probable_start_time}}
-                                {{i.first_consultation_fee}}</span></p>
+                                </span></p>
                             <hr>
 
                             <a href="{% url 'cancel_appointment' i.pk %}" class="btn btn-sm btn-outline-danger">Cancel
@@ -29,30 +29,9 @@
         </div>
         {% endfor %}
         {%else%}
-        <p class="lead text-success">No appointment available.</p>
+        <p class="lead text-success">No appointment is scheduled.</p>
         {%endif%}
         <br>
-        <p class="text-center Lead h4"><u>Recent Appointments</u></p>
-        {% if pastAppointments|length > 0%}
-        {% for i in pastAppointments %}
-        <div class="row mt-3 p-2">
-            <div class="card mb-3" style="max-width: 100%;">
-                <div class="row">
-                    <div class="col-md-10">
-                        <div class="card-body">
-                            <h5 class="card-title">Dr. {{i.doctor_id.firstname}} {{i.doctor_id.lastname}}</h5>
-                            <p class="card-text">Date of Appointment: <span
-                                    class="text-muted">{{i.appointment_date}}</span></p>
-                            <p class="card-text">Time-Slot:<span class="text-muted small"> {{i.probable_start_time}}
-                                {{i.first_consultation_fee}}</span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endfor %} {%else%}
-        <p class="lead text-success">No appointment available.</p>
-        {%endif%}
     </div>
 </div>
 {% endblock %}

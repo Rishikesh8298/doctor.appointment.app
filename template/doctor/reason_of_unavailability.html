@@ -1,0 +1,31 @@
+{% extends 'doctor/master.html' %}{% load static %}
+{% block titleblock %}
+<title>Take Appointment | Doctor Appointments</title>
+{% endblock %} {% block mainblock %}
+<div class="container">
+    <p class="h2 text-center bold">Unavailability Form</p>
+    <form action="{% url 'unavailability' %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-12">
+                <label for="date" class="form-label">Choose a date *</label>
+                <select class="form-control" id="date" name="date" required>
+                    <option selected>Available dates</option>
+                    {% for i in date_list %}
+                    <option value="{{i}}">{{i}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-12">
+                <label for="reason" class="form-label">Provide a reason *</label>
+                <textarea class="form-control" id="reason" name="reason" rows="6" required></textarea>
+            </div>
+        </div>
+        <br>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

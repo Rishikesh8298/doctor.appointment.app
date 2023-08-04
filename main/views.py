@@ -22,7 +22,7 @@ def userlogin(request):
             login(request, log)
             if request.user.is_superuser:
                 return redirect('admin_dashboard')
-            elif len(DoctorInfo.objects.filter(userid=request.user)):
+            elif len(DoctorInfo.objects.filter(userid=request.user)) == 1:
                 return redirect('doctor_dashboard')
             else:
                 return redirect('patient_homepage')

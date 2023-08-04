@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <td>Email</td>
-            <td>{{request.user.email}}</td>
+            <td>{{patient.userid.email}}</td>
         </tr>
         <tr>
             <td>Phone</td>
@@ -38,10 +38,23 @@
     <hr>
     <p class="lead" style="font-size: larger;"><i class="fa fa-clock-o" aria-hidden="true"></i> Recent Activity</p>
     <hr>
-    {% if activity|length > 0 %}
-    1 appointment was taken.
-    {% else %}
-    <p class="paragraph"> No recent Activity.</p>
+    {% if recent.canceled > 0 %}
+    <div class="alert alert-danger" role="alert">
+        1 Appointment is canceled.
+    </div>
+    {% endif %}
+    {% if recent.visited > 0 %}
+    <div class="alert alert-success" role="alert">
+        1 appointment is completed.
+    </div>
     {% endif%}
+    {% if recent.notVisited > 0 %}
+    <div class="alert alert-info" role="alert">
+        1 appointment is scheduled.
+    </div>
+    {% endif%}
+    {% if recent.notVisited > 0 and recent.visited > 0 and recent.canceled > 0%}
+    <p>No recent activity</p>
+    {% endif %}
 </div>
 {% endblock %}

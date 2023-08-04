@@ -1,0 +1,33 @@
+{% extends 'doctor/master.html' %}{% load static %}
+{% block titleblock %}
+<title>Upcoming Appointment | Doctor Appointments</title>
+{% endblock %} {% block mainblock %}
+<p class="text-center h4">List of Upcoming Appointments</p>
+{% if main|length > 0%}
+<div class="table-responsive container">
+    <table class="table table-sm">
+        <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Time-Slot</th>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in main %}
+        <tr>
+            <td>{{i.appointment_date}}</td>
+            <td>{{i.probable_start_time}}</td>
+            <td>{{i.patient_id.firstname}} {{i.patient_id.lastname}}</td>
+            <td><a class="btn btn-sm btn-info" href="{% url 'view_patient_profile' i.patient_id.userid %}">
+                <i class="fa fa-eye" aria-hidden="true"></i> View</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{%else%}
+<p class="bg-danger lead p-2 text-center text-light">No appointments has taken.</p>
+{%endif%}
+{% endblock %}

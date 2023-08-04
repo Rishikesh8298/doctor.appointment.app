@@ -75,3 +75,10 @@ class Appointment(models.Model):
     probable_start_time = models.TimeField(null=True, default="09:30", max_length=10)
     actual_end_time = models.TimeField(null=True, default="09:30", max_length=10)
     appointment_date = models.DateField()
+    status = models.CharField(default="Not-Visit", max_length=15)
+
+
+class Unavailability(models.Model):
+    doctor_id = models.ForeignKey(DoctorInfo, blank=False, on_delete=CASCADE, null=False)
+    date_of_unavailability = models.DateField()
+    reason_of_unavailability = models.TextField(default="")

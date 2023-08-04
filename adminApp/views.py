@@ -21,7 +21,7 @@ def admin_dashboard(request):
 def doctor_list(request):
     doctors = DoctorInfo.objects.all().order_by('-pk')
     page = request.GET.get('page')
-    main = create_pagination(main=doctors, no=20, page=page)
+    main = create_pagination(main=doctors, no=30, page=page)
     return render(request, 'adminApp/doctor_list.html', {"main": main})
 
 

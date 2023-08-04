@@ -1,79 +1,83 @@
-{% extends 'doctor/master.html' %}{%load static %}
+{% extends 'patient/master.html' %}{% load static %}
 {% block titleblock %}
-<title>Doctor Appointment | Profile</title>
-{% endblock %} {% block headblock %}Update your profile | <a class="btn btn-outline-primary btn-sm"
-                                                             href="{% url 'edit_profile' %}">Edit</a>{% endblock %}
+<title>Doctor Profile | Doctor Appointments</title>
+{% endblock %}
 {% block mainblock %}
 <div class="container">
     <!-- Personal Info started -->
     <table class="table">
         <thead>
         <tr>
-            <td colspan="2" style="font-size: larger;"><b>Personal Information</b></td>
+            <td colspan="2" style="font-size: larger;"><b>Bio</b></td>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td>User ID</td>
-            <td>{{request.user}}</td>
-        </tr>
-        <tr>
             <td>Full Name</td>
-            <td>{{doctorinfo.firstname}} {{doctorinfo.lastname}}</td>
+            <td>{{doctors.firstname}} {{doctors.lastname}}</td>
         </tr>
         <tr>
             <td>Email</td>
-            <td>{{request.user.email}}</td>
+            <td>{{doctors.email}}</td>
         </tr>
         <tr>
             <td>Phone</td>
-            <td>{{doctorinfo.phone}}</td>
+            <td>{{doctors.phone}}</td>
         </tr>
         <tr>
             <td>Specialization</td>
-            <td>{{specialty.specialization_id.name}}</td>
+            <td>{{doctors.specialty}}</td>
         </tr>
         <tr>
-            <td>Address</td>
-            <td> Address 1: {{office.address1}}, Address 2: {{office.address2}} City: {{office.city}} State:
-                {{office.state}} Country {{office.country}}, {{office.zipcode}}
+            <td>Practicing from</td>
+            <td>{{doctors.practicing_year}}</td>
+        </tr>
+        <tr>
+            <td>Office Address</td>
+            <td>{{doctors.address1}} {{doctors.address2}}, {{doctors.city}}
+                {{doctors.state}} {{doctors.country}}, {{doctors.zipcode}}
             </td>
         </tr>
+        <tr>
+            <td>Professional Statement</td>
+            <td>{{doctors.professional_statement}}</td>
+        </tr>
+
 
         </tbody>
     </table>
     <!-- Personal Info ended -->
 
     <div class="row">
-        <!-- Qualification started   -->
+        <!-- doctors started   -->
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
                     <table class="table">
                         <thead>
                         <tr>
-                            <td colspan="2" style="font-size: larger;"><b>Higher Qualification</b></td>
+                            <td colspan="2" style="font-size: larger;"><b>Higher doctors</b></td>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td>Course Name</td>
-                            <td>{{qualification.name}}</td>
+                            <td>{{doctors.course_name}}</td>
                         </tr>
                         <tr>
                             <td>Institute Name</td>
-                            <td>{{qualification.institute_name}}</td>
+                            <td>{{doctors.institute_name}}</td>
                         </tr>
                         <tr>
                             <td>Passing Year</td>
-                            <td>{{qualification.passing_year}}</td>
+                            <td>{{doctors.passing_year}}</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        <!-- Qualification ended   -->
+        <!-- doctors ended   -->
         <!-- Availability started -->
         <div class="col-sm-6">
             <div class="card">
@@ -87,20 +91,18 @@
                         <tbody>
                         <tr>
                             <td>Day of Week</td>
-                            <td>{{doctorAvailability.day_of_week}}</td>
+                            <td>{{doctors.day_of_week}}</td>
                         </tr>
                         <tr>
                             <td>Patient visit start time</td>
-                            <td>{{doctorAvailability.start_time}}</td>
+                            <td>{{doctors.start_time}}</td>
                         </tr>
                         <tr>
                             <td>Patient visit end time</td>
-                            <td>{{doctorAvailability.end_time}}</td>
+                            <td>{{doctors.end_time}}</td>
                         </tr>
-
                         </tbody>
                     </table>
-
                 </div>
             </div>
         </div>
@@ -108,32 +110,6 @@
     </div>
 
     <div class="row mt-3">
-        <!-- Bio started -->
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <td colspan="2" style="font-size: larger;"><b>Bio</b></td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Practicing from</td>
-                            <td>{{doctorinfo.practicing_year}}</td>
-                        </tr>
-                        <tr>
-                            <td>Professional Statement</td>
-                            <td>{{doctorinfo.professional_statement}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
-        </div>
-        <!-- Bio ended -->
         <!-- Time & Fee structure started -->
         <div class="col-sm-6">
             <div class="card">
@@ -147,15 +123,15 @@
                         <tbody>
                         <tr>
                             <td>Time slot per patient time</td>
-                            <td>{{office.time_slot_per_patient_time}}</td>
+                            <td>{{doctors.time_slot_per_patient_time}}</td>
                         </tr>
                         <tr>
                             <td>First consultation fee</td>
-                            <td>{{office.first_consultation_fee}}</td>
+                            <td>{{doctors.first_consultation_fee}}</td>
                         </tr>
                         <tr>
                             <td>Followup consultation fee</td>
-                            <td>{{office.followup_consultation_fee}}</td>
+                            <td>{{doctors.followup_consultation_fee}}</td>
                         </tr>
                         </tbody>
                     </table>
