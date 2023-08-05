@@ -10,6 +10,7 @@ from doctor.models import DoctorInfo, DoctorSpecialization, DoctorAvailability, 
     Unavailability
 from module.dates import get_date_list, next_week, whole_week
 from .models import PatientInfo, User
+from module.email_send import emailSend
 
 
 @login_required(login_url='/login/')
@@ -87,7 +88,10 @@ def take_appointment(request, doctor_id):
                Thank You, 
                Admin
                """
-        # emailSend(subject, message, request.user.email)
+        try:
+            emailSend(subject, message, request.user.email)
+        except:
+            pass
         return redirect("view_appointment")
 
     return render(request, "patient/take_appointment.html",

@@ -89,7 +89,10 @@ def password_sent(request, userid):
     Thank You, 
     Admin
     """
-    emailSend(subject, message, userinfo.email)
+    try:
+        emailSend(subject, message, userinfo.email)
+    except:
+        pass
     doc = DoctorInfo.objects.get(userid=userinfo)
     doc.is_password_sent = True
     doc.save()
