@@ -1,7 +1,8 @@
 from django.urls import path
 
 from .views import doctor_dashboard, view_profile, change_password, update_profile, view_appointments, \
-    today_appointments, upcoming_appointments, change_status, view_patient_profile, unavailability, unavailability_list, view_reason
+    today_appointments, upcoming_appointments, change_status, view_patient_profile, unavailability, unavailability_list, \
+    view_reason,  search_appointments_by_date
 
 urlpatterns = [
     path('dashboard/', doctor_dashboard, name="doctor_dashboard"),
@@ -15,5 +16,6 @@ urlpatterns = [
     path('patient/profile/<str:patient_id>/', view_patient_profile, name="view_patient_profile"),
     path('reason/add/', unavailability, name="unavailability"),
     path('reason/lists/', unavailability_list, name="unavailability_list"),
-    path('reason/view/<int:id>', view_reason, name="view_reason")
+    path('reason/view/<int:id>', view_reason, name="view_reason"),
+    path("search/appointments/", search_appointments_by_date, name="search_appointments_by_date"),
 ]

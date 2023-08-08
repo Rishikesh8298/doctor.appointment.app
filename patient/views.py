@@ -9,8 +9,8 @@ from adminApp.models import Specialty
 from doctor.models import DoctorInfo, DoctorSpecialization, DoctorAvailability, Office, Appointment, Qualification, \
     Unavailability
 from module.dates import get_date_list, next_week, whole_week
-from .models import PatientInfo, User
 from module.email_send import emailSend
+from .models import PatientInfo, User
 
 
 @login_required(login_url='/login/')
@@ -19,6 +19,21 @@ def patient_homepage(request):
     cities = sorted(list(cities))
     return render(request, 'patient/home.html',
                   {"cities": cities, "specialty": Specialty.objects.all()})
+
+
+@login_required(login_url="/login/")
+def change_password_of_patient(request):
+    if request.method == "POST":
+        old_password = request.POST.get("old_password")
+        new_password = request.POST.get("new_password")
+        userinfo = User.objects.get(username=request.user)
+        if userinfo.check_password(old_password):
+            userinfo.set_password(new_password)
+            userinfo.save()
+            return redirect("logout")
+        else:
+            messages.error(request, "Please enter correct password.")
+    return render(request, "patient/change_password_of_patient.html")
 
 
 @login_required(login_url='/login/')

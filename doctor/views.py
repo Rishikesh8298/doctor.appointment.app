@@ -132,11 +132,11 @@ def update_profile(request):
 @login_required(login_url='/login/')
 def view_appointments(request):
     appointmentList = Appointment.objects.filter(doctor_id=DoctorInfo.objects.get(userid=request.user))
-    pastAppointments = [i for i in appointmentList if i.appointment_date < dt.date.today()]
+    pastAppointments = [i for i in appointmentList if i.appointment_date < dt.date.today() and i.status != "Cancel"]
+
     page = request.GET.get('page')
     main = create_pagination(main=pastAppointments, no=30, page=page)
-    return render(request, "doctor/view_appointment.html",
-                  {"main": main})
+    return render(request, "doctor/view_appointment.html", {"main": main})
 
 
 @login_required(login_url='/login/')
@@ -200,3 +200,15 @@ def unavailability_list(request):
 def view_reason(request, id):
     main = Unavailability.objects.get(id=id)
     return render(request, "doctor/view_reason.html", {"main": main})
+
+
+@login_required(login_url='/login/')
+def search_appointments_by_date(request):
+    if request.method == "POST":
+        date = request.POST.get("date")
+        appointmentList = Appointment.objects.filter(doctor_id=DoctorInfo.objects.get(userid=request.user),
+                                                     appointment_date=date).exclude(status="Cancel")
+        page = request.GET.get('page')
+        main = create_pagination(main=appointmentList, no=30, page=page)
+        return render(request, "doctor/search_appointments_by_date.html", {"main": main, "date": date})
+    return redirect("view_appointments")

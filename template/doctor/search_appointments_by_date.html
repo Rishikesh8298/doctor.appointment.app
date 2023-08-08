@@ -3,11 +3,9 @@
 <title>Appointment Lists | Doctor Appointments</title>
 {% endblock %} {% block mainblock %}
 <div class="container">
+    <p class="text-center h4">Search results ({{date}})</p>
+    <hr>
     {% if main|length > 0%}
-    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
-        Search by date
-    </button>
-    <p class="text-center h4">List of Appointments</p>
     <div class="table-responsive ">
         <table class="table table-sm">
             <thead>
@@ -35,31 +33,6 @@
         </table>
 
     </div>
-
-    <!-- Search appointment by date started-->
-    <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Search by date</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="{% url 'search_appointments_by_date' %}" method="post">
-                    {% csrf_token %}
-                    <div class="modal-body">
-                        <input type="date" name="date" id="date" class="form-control">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close
-                        </button>
-                        <input type="submit" value="submit" class="btn btn-sm btn-outline-success">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- Search appointment by date END-->
     <!-- Pagination Begin -->
     <div class="col-md-12 p-2 mt-5 text-light text-center" style="margin-bottom: 5%;">
         {% if main.has_previous %} <a
@@ -84,8 +57,8 @@
         {% endif %}
     </div>
     <!-- Pagination Ended -->
-    {% else %}
-    <p class="lead text-light bg-dark p-3 text-center">No appointment taken.</p>
+    {%else%}
+    <p class="lead text-success text-center">No appointment taken.</p>
     {%endif%}
 
 </div>

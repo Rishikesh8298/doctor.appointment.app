@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import patient_homepage, take_appointment, view_appointment, view_profile, edit_profile, apply_filter, \
-    cancel_appointment, view_doctor
+    cancel_appointment, view_doctor, change_password_of_patient
 
 urlpatterns = [
     path('dashboard/', patient_homepage, name="patient_homepage"),
@@ -12,4 +12,5 @@ urlpatterns = [
     path('apply/filter/', apply_filter, name="apply_filter"),
     path('appointment/cancel/<int:id>/', cancel_appointment, name="cancel_appointment"),
     path('view/doctor/<str:id>/', view_doctor, name="view_doctor"),
+    path('change/password/', change_password_of_patient, name="change_password_of_patient"),
 ]
