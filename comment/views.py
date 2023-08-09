@@ -10,7 +10,7 @@ def add_comment(request):
     if request.method == "POST":
         name = request.POST.get('name')
         email = request.POST.get('email')
-        comment = request.POST.get('Comments')
+        comment = request.POST.get('comments')
         add_data = Comment(name=name, email=email, comment=comment)
         add_data.save()
         messages.success(request, "Successfully posted to Admin.")

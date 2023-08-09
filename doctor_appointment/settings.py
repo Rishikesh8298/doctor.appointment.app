@@ -74,9 +74,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'doctor_appointment',
         'USER': 'root',
-        'PASSWORD': '7upNimbooz'
+        'PASSWORD': '7upNimbooz',
+        'TEST_NAME': BASE_DIR / 'test_db.sqlite3',
     }
-
 }
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
