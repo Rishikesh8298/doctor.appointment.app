@@ -71,6 +71,10 @@ WSGI_APPLICATION = 'doctor_appointment.wsgi.application'
 # }
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'doctor_appointment': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'doctor_appointment',
         'USER': 'root',

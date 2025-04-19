@@ -9,12 +9,14 @@
         <thead>
         <tr>
             <th scope="col">Doctor Specialty</th>
+            <th scope="col">Count</th>
         </tr>
         </thead>
         <tbody>
         {% for i in main %}
         <tr>
-            <td>{{i.name}}</td>
+            <td>{{i.specialization_id__name }}</td>
+            <td>{{i.speciality_count}}</td>
         </tr>
         {% endfor %}
 
